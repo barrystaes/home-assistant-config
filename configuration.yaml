@@ -1,0 +1,121 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Thuis
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret homeassistant_latitude
+  longitude: !secret homeassistant_longitude
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 11
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/Amsterdam
+  # Customization file
+  customize_glob: !include customize_glob.yaml
+  customize: !include customize.yaml
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+http:
+  base_url: !secret http_base_url
+  ssl_certificate: /ssl/fullchain.pem
+  ssl_key: /ssl/privkey.pem
+
+# Discover some devices automatically
+#discovery:
+
+# Sensors
+sensor:
+  # Weather prediction
+  - platform: yr
+  - platform: postnl
+    username: !secret postnl_username
+    password: !secret postnl_password
+  - platform: plex
+    host: !secret plex_host
+    port: !secret plex_port
+    name: Plex
+    token: !secret plex_token
+    ssl: true
+    verify_ssl: false
+  - platform: dsmr
+    host: !secret dsmr_host
+    port: !secret dsmr_port
+    dsmr_version: 4
+  - platform: rflink
+    automatic_add: true
+    #devices:
+    #  sensor.cresta_2d01_hum
+    #  sensor.cresta_2d01_temp
+    #  sensor.cresta_2d01_bat
+    
+binary_sensor:
+  - platform: rflink
+    devices:
+      newkaku_00a2d08e_a:
+        name: Beweging
+        device_class: motion
+      #fa500_0a0b_0a0b:
+      #  name: Deursensor1
+      #  device_class: door
+
+switch:
+  - platform: rflink
+    #device_defaults:
+    #  fire_event: true
+    #  signal_repetitions: 2
+    devices:
+      newkaku_0091ee0e_2: 
+        name: Woonkamer muur
+        fire_event: true
+
+light:
+  - platform: rflink
+    automatic_add: false
+    devices:
+      newkaku_00bb0001_1:
+        # s/n 1406000001
+        name: Dimmer zwart
+        #type: hybrid
+      newkaku_00bb0002_1:
+        # APCR-2300 stekkerblok
+        name: Blok
+
+  
+rflink:
+  host: !secret rflink_host
+  port: !secret rflink_port
+
+# Text to speech
+#tts:
+#  - platform: google_translate
+
+#media_player:
+#  - platform: plex
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+
+influxdb:
+  host: !secret influxdb_host
+  port: !secret influxdb_port
+  database: homeassistant
+  username: !secret influxdb_username
+  password: !secret influxdb_password
+  max_retries: 3
+  default_measurement: state
+
+panel_iframe:
+  grafana:
+    title: Grafana
+    icon: mdi:chart-timeline
+    url: !secret panel_iframe_grafana_url
+
+logger:
+  default: error
+  logs:
+    rflink: debug
+    homeassistant.components.rflink: debug

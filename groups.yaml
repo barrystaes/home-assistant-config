@@ -1,0 +1,39 @@
+meterstanden:
+  name: Meterstand
+  control: hidden
+  entities:
+    - sensor.power_consumption_low
+    - sensor.power_consumption_normal
+    - sensor.gas_consumption
+    - sensor.rt_ac3200_bytes_sent
+    - sensor.rt_ac3200_bytes_received
+    - sensor.long_power_failure_count
+
+meterverbruik:
+  name: Meter verbruik
+  control: hidden
+  entities:
+    - sensor.power_consumption
+    - sensor.power_tariff
+    - sensor.hourly_gas_consumption
+    - sensor.rt_ac3200_kbyte_sec_sent
+    - sensor.rt_ac3200_kbyte_sec_received
+    
+klimaat:
+  name: Klimaat
+  control: hidden
+  entities:
+    - sensor.cresta_2a01_temp
+    - sensor.cresta_2a01_hum
+    - sensor.cresta_2d01_temp
+    - sensor.cresta_2d01_hum
+    - sensor.cresta_6603_temp
+    - sensor.cresta_6603_hum
+    
+battery:
+  name: Batterijen
+  control: hidden
+  entities:
+    - sensor.cresta_2a01_bat
+    - sensor.cresta_2d01_bat
+    - sensor.cresta_6603_bat
