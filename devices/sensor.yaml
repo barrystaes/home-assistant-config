@@ -1,0 +1,17 @@
+- platform: yr
+- platform: postnl
+  username: !secret postnl_username
+  password: !secret postnl_password
+- platform: plex
+  host: !secret plex_host
+  port: !secret plex_port
+  name: Plex
+  token: !secret plex_token
+  ssl: true
+  verify_ssl: false
+- platform: dsmr
+  host: !secret dsmr_host
+  port: !secret dsmr_port
+  dsmr_version: 4
+- platform: rflink
+  automatic_add: true
