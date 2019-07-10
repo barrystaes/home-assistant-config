@@ -1,0 +1,34 @@
+esphome:
+  name: mini_display_test
+  platform: ESP32
+  board: ttgo-lora32-v1
+
+wifi:
+  ssid: !secret esphome_wifi_ssid
+  password: !secret esphome_wifi_password
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+sensor:
+  - platform: wifi_signal
+    name: "WESP WiFi Signal Sensor"
+    update_interval: 60s
+    
+i2c:
+  sda: 5
+  scl: 4
+
+display:
+  - platform: ssd1306_i2c
+    model: "SSD1306 128x64"
+    #reset_pin: D0
+    address: 0x3C
+    lambda: |-
+      it.line(0, 0, 100, 50);
+      //it.print(0, 0, id(font), "Haai World!");
