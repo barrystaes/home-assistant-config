@@ -7,7 +7,7 @@ wifi:
   ssid: !secret esphome_wifi_ssid
   password: !secret esphome_wifi_password
 
-# Enable logging
+# Enable logging 
 logger:
 
 # Enable Home Assistant API
@@ -31,4 +31,5 @@ display:
     address: 0x3C
     lambda: |-
       it.line(0, 0, 100, 50);
-      //it.print(0, 0, id(font), "Haai World!");
+      it.line(0, 0, 100, 05);
+#      //it.print(0, 0, id(font), "Haai World!");
