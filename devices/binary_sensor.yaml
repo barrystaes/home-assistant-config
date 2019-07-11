@@ -3,6 +3,3 @@
     newkaku_00a2d08e_a:
       name: Beweging
       device_class: motion
-    #fa500_0a0b_0a0b:
-    #  name: Deursensor1
-    #  device_class: door

@@ -1,8 +1,4 @@
-- platform: rflink
-  #device_defaults:
-  #  fire_event: true
-  #  signal_repetitions: 2
-  devices:
-    newkaku_0091ee0e_2: 
-      name: Woonkamer muur
-      fire_event: true
+#- platform: rflink
+#  devices:
+#    newkaku_0091ee0e_2: 
+#      name: Woonkamer muur

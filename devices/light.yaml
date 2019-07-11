@@ -1,10 +1,5 @@
 - platform: rflink
   automatic_add: false
   devices:
-    newkaku_00bb0001_1:
-      # s/n 1406000001
-      name: Dimmer zwart
-      #type: hybrid
-    newkaku_00bb0002_1:
-      # APCR-2300 stekkerblok
-      name: Blok
+    newkaku_0091ee0e_2: 
+      name: Woonkamer sfeerlicht

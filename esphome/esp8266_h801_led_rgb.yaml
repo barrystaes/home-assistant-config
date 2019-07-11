@@ -34,15 +34,23 @@ output:
     pin: 15
     frequency: 1000 Hz
     id: pwm_r
-  - platform: esp8266_pwm
-    pin: 14
-    frequency: 1000 Hz
-    id: pwm_w
+#  - platform: esp8266_pwm
+#    pin: 14
+#    frequency: 1000 Hz
+#    id: pwm_w1
+#  - platform: esp8266_pwm
+#    pin: 4
+#    frequency: 1000 Hz
+#    id: pwm_w2
     
 light:
-  - platform: rgbw
+  - platform: rgb
     name: "H801 Light"
     red: pwm_r
     green: pwm_g
     blue: pwm_b
-    white: pwm_w
+    #white: pwm_w1
+    effects:
+      - random:
+      - flicker:
+      - strobe:
