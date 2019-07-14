@@ -1,4 +1,4 @@
-#- platform: rflink
-#  devices:
-#    newkaku_0091ee0e_2: 
-#      name: Woonkamer muur
+- platform: rflink
+  devices:
+    newkaku_0091ee0e_2: 
+      name: Woonkamer sfeerlicht

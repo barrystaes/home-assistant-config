@@ -1,1 +1,33 @@
-[]
+# Woonkamer on
+- alias: Woonkamer verlichting aan
+  trigger:
+    - platform: event  # not using state, because double-pressing can happen
+      event_type: button_pressed
+      event_data:
+        entity_id: switch.woonkamer_sfeerlicht
+        state: 'on'
+    - platform: state
+      entity_id: switch.woonkamer_sfeerlicht
+      to: 'on'
+  action:
+    service: light.turn_on
+    data:
+      entity_id:
+        - light.h801_light
+
+# Woonkamer off
+- alias: Woonkamer verlichting uit
+  trigger:
+    - platform: event  # not using state, because double-pressing can happen
+      event_type: button_pressed
+      event_data:
+        entity_id: switch.woonkamer_sfeerlicht
+        state: 'off'
+    - platform: state
+      entity_id: switch.woonkamer_sfeerlicht
+      to: 'off'
+  action:
+    service: light.turn_off
+    data:
+      entity_id:
+        - light.h801_light
