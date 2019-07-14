@@ -39,6 +39,10 @@ light: !include devices/light.yaml
 rflink:
   host: !secret rflink_host
   port: !secret rflink_port
+# RFLink version+config: (output seen via USB in RFLinkLoader v1.11)
+# 20;01;VER=1.1;REV=48;BUILD=04;
+# 10;status;
+# 20;02;STATUS;setRF433=ON;setNodoNRF=OFF;setMilight=OFF;setLivingColors=OFF;setAnsluta=OFF;setGPIO=OFF;setBLE=OFF;setMysensors=OFF;
 
 # Text to speech
 #tts:
