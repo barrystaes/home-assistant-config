@@ -37,3 +37,10 @@ battery:
     - sensor.cresta_2a01_bat
     - sensor.cresta_2d01_bat
     - sensor.cresta_6603_bat
+
+deuren:
+  name: Ramen & Deuren
+  control: hidden
+  entities:
+    - binary_sensor.deur_berging
+    - binary_sensor.brievenbus

@@ -3,3 +3,13 @@
     newkaku_00a2d08e_a:
       name: Beweging
       device_class: motion
+    eurodomest_0b154d_00:
+      aliases:
+        - eurodomest_0b154d_03
+      name: Deur berging
+      device_class: door
+    eurodomest_00648d_00:
+      aliases:
+        - eurodomest_00648d_03
+      name: Brievenbus
+      device_class: window
