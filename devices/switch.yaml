@@ -2,3 +2,10 @@
   devices:
     newkaku_0091ee0e_2: 
       name: Woonkamer sfeerlicht
+- platform: command_line
+  switches:
+    pihole_switch:
+      command_on: !secret pihole_switch_command_on
+      command_off: !secret pihole_switch_command_off
+      command_state: !secret pihole_switch_command_state
+      value_template: "{{ value_json.status == 'enabled' }}"

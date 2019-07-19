@@ -43,3 +43,5 @@
     cresta_2a01_temp:
       #name: Cresta_buiten_temp
       sensor_type: temperature
+- platform: pi_hole
+  host: !secret pihole_host
