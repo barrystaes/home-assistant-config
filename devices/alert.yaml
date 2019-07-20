@@ -1,0 +1,11 @@
+brievenbus_post:
+  name: "Hee er is post"
+  entity_id: binary_sensor.brievenbus
+  state: 'off'
+  repeat: 
+    - 5
+    - 60
+  can_acknowledge: true
+  skip_first: false
+  notifiers:
+    - notify_html5_firebase

@@ -35,6 +35,10 @@ switch: !include devices/switch.yaml
 
 light: !include devices/light.yaml
 
+notify: !include devices/notify.yaml
+
+alert: !include devices/alert.yaml
+
   
 rflink:
   host: !secret rflink_host
