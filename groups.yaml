@@ -18,6 +18,13 @@ meterverbruik:
     - sensor.hourly_gas_consumption
     - sensor.rt_ac3200_kbyte_sec_sent
     - sensor.rt_ac3200_kbyte_sec_received
+
+internet:
+  name: Internet
+  control: hidden
+  entities:
+    - switch.pihole_switch
+    - sensor.pi_hole_ads_blocked_today
     
 klimaat:
   name: Klimaat
@@ -44,3 +51,15 @@ deuren:
   entities:
     - binary_sensor.deur_berging
     - binary_sensor.brievenbus
+    
+weer:
+  name: Buienradar 5 minuten
+  control: hidden
+  entities:
+    - sensor.br_symbol
+    - sensor.br_humidity
+    - sensor.br_temperature
+    - sensor.br_wind_speed
+    - sensor.br_pressure
+    - sensor.br_rainchance_1d
+    - sensor.br_rain_1d

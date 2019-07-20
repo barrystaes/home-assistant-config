@@ -45,3 +45,13 @@
       sensor_type: temperature
 - platform: pi_hole
   host: !secret pihole_host
+- platform: buienradar
+  timeframe: 5
+  monitored_conditions:
+    - symbol
+    - humidity
+    - temperature
+    - windspeed
+    - pressure
+    - rainchance_1d
+    - rain_1d
