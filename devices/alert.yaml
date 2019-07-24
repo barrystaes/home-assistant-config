@@ -1,9 +1,21 @@
 brievenbus_post:
-  name: "Hee er is post"
+  name: Melding post
+  message: "Hee er is post"
   entity_id: binary_sensor.brievenbus
   state: 'off'
   repeat: 
     - 5
+    - 60
+  can_acknowledge: true
+  skip_first: false
+  notifiers:
+    - notify_html5_firebase
+chins_overhit:
+  name: Melding chins overhit
+  message: "Chins overhit: {{ states('sensor.cresta_6603_temp') }}°C"
+  entity_id: binary_sensor.is_chins_overheat
+  state: 'on'
+  repeat:
     - 60
   can_acknowledge: true
   skip_first: false

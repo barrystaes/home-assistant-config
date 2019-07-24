@@ -13,3 +13,9 @@
         - eurodomest_00648d_03
       name: Brievenbus
       device_class: window
+- platform: template
+  sensors:
+    is_chins_overheat:
+      value_template: "{{ states('sensor.cresta_6603_temp') | float > 27 }}"
+      friendly_name: 'Alarm chins overhit'
+      device_class: problem
