@@ -51,6 +51,7 @@ deuren:
   entities:
     - binary_sensor.deur_berging
     - binary_sensor.brievenbus
+    - binary_sensor.beweging
     
 #weer:
 #  name: Buienradar 5 minuten
@@ -63,3 +64,17 @@ deuren:
 #    - sensor.br_pressure
 #    - sensor.br_rainchance_1d
 #    - sensor.br_rain_1d
+
+trash:
+  name: Vuilnis
+  control: hidden
+  entities:
+    - sensor.trash_today
+    - sensor.trash_tomorrow
+    - sensor.trash_firstdate
+    - sensor.trash_firstwastetype
+    - sensor.trash_next
+    - sensor.trash_gft
+    - sensor.trash_papier
+    - sensor.trash_pmd
+    - sensor.trash_restafval

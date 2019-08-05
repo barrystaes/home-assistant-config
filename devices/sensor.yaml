@@ -55,3 +55,9 @@
 #    - pressure
 #    - rainchance_1d
 #    - rain_1d
+- platform: afvalwijzer
+  url: 'afvalstoffendienstkalender.nl'
+  postcode: '5061NJ'
+  huisnummer: '43'
+  toevoeging: ''
+  label_geen: 'Geen'

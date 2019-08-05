@@ -22,6 +22,9 @@ http:
   base_url: !secret http_base_url
   ssl_certificate: /ssl/fullchain.pem
   ssl_key: /ssl/privkey.pem
+  
+hacs:
+  token: !secret hacs_github_token
 
 # Discover some devices automatically
 #discovery:
@@ -59,7 +62,6 @@ rflink:
 #    client_secret: !secret spotify_client_secret
 #    aliases:
 #      4a4eece177e2ddd2996edc30482fa2d6: 'TV'
-
 
 group: !include groups.yaml
 automation: !include automations.yaml
