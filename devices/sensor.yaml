@@ -57,7 +57,7 @@
 #    - rain_1d
 - platform: afvalwijzer
   url: 'afvalstoffendienstkalender.nl'
-  postcode: '5061NJ'
-  huisnummer: '43'
-  toevoeging: ''
+  postcode: !secret afvalwijzer_postcode
+  huisnummer: !secret afvalwijzer_huisnummer
+  toevoeging: !secret afvalwijzer_toevoeging
   label_geen: 'Geen'
