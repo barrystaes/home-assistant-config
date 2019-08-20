@@ -42,7 +42,8 @@ notify: !include devices/notify.yaml
 
 alert: !include devices/alert.yaml
 
-  
+input_boolean: !include devices/input_boolean.yaml
+
 rflink:
   host: !secret rflink_host
   port: !secret rflink_port
