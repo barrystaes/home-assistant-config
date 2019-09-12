@@ -13,7 +13,7 @@
     service: light.turn_on
     data:
       entity_id:
-        - light.h801_light
+        - light.woonkamer_kast_light_rgb
 
 # Woonkamer off
 - alias: Woonkamer verlichting uit
@@ -30,7 +30,7 @@
     service: light.turn_off
     data:
       entity_id:
-        - light.h801_light
+        - light.woonkamer_kast_light_rgb
 
 # Afvalwijzer
 - alias: Reset trash notification

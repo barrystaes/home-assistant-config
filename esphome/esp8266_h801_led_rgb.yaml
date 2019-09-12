@@ -1,7 +1,11 @@
 esphome:
-  name: esp8266_h801_led_rgb
+  name: woonkamer_kast_light
+  # FKA esp8266_h801_led_rgb
   platform: ESP8266
   board: esp01_1m
+
+# H801 led rgbww connected to IKEA Dioder strips
+# First flash: connect 3.3V FTDI flash, might have to connect a pin (0?) to GND or hold a button.
 
 wifi:
   ssid: !secret esphome_wifi_ssid
@@ -17,8 +21,10 @@ ota:
 
 sensor:
   - platform: wifi_signal
-    name: "WiFi Signal h801 led rgb"
+    name: "Woonkamer Kast Light WiFi Signal"
     update_interval: 60s
+  - platform: uptime
+    name: "Woonkamer Kast Light Uptime"
     
 #RGBWarm
 output:
@@ -45,7 +51,7 @@ output:
     
 light:
   - platform: rgb
-    name: "H801 Light"
+    name: "Woonkamer Kast Light RGB"
     red: pwm_r
     green: pwm_g
     blue: pwm_b
@@ -54,3 +60,7 @@ light:
       - random:
       - flicker:
       - strobe:
+  
+text_sensor:
+  - platform: version
+    name: "Woonkamer Kast Light Firmware version"

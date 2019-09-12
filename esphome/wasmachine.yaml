@@ -1,0 +1,98 @@
+esphome:
+  name: wasmachine
+  platform: ESP8266
+  board: esp01_1m
+
+# Koogeek smart plug KLSP1
+# First flash: over wifi using tuya-convert tool see https://lovetechstuff.com/iot-products/how-to-flash-wifi-socket-without-disassembly/
+# tuya-convert on Ubuntu 18.04 use needs patch https://github.com/ct-Open-Source/tuya-convert/issues/157#issuecomment-529238904
+
+wifi:
+  ssid: !secret esphome_wifi_ssid
+  password: !secret esphome_wifi_password
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+binary_sensor:
+  - platform: gpio
+    id: button
+    pin:
+      number: GPIO3
+      inverted: True
+    on_press:
+      - switch.toggle: fakebutton
+
+switch:
+  - platform: template
+    name: "Wasmachine Switch"
+    optimistic: true
+    id: fakebutton
+    turn_on_action:
+    - switch.turn_on: relay
+    - light.turn_on: led
+    turn_off_action:
+    - switch.turn_off: relay
+    - light.turn_off: led
+  - platform: gpio
+    id: relay
+    pin: GPIO14
+
+output:
+  - platform: esp8266_pwm
+    id: pow_blue_led
+    pin:
+      number: GPIO1
+      inverted: True
+
+light:
+  - platform: monochromatic
+    output: pow_blue_led
+    id: led
+
+sensor:
+  - platform: wifi_signal
+    name: "Wasmachine WiFi Signal"
+    update_interval: 60s
+  - platform: uptime
+    name: "Wasmachine Uptime"
+  - platform: hlw8012
+    sel_pin:
+      number: GPIO12
+      inverted: True
+    cf_pin: GPIO04
+    cf1_pin: GPIO05
+    current_resistor: "0.0028"
+    voltage_divider: "960"
+    current:
+      name: "Wasmachine Current"
+      unit_of_measurement: A
+    voltage:
+      name: "Wasmachine Voltage"
+      unit_of_measurement: V
+    power:
+      name: "Wasmachine Power"
+      unit_of_measurement: W
+      id: power
+    change_mode_every: 8
+    update_interval: 10s
+  - platform: total_daily_energy
+    name: "Wasmachine Total Daily Energy"
+    power_id: power
+    unit_of_measurement: W
+
+text_sensor:
+  - platform: version
+    name: "Wasmachine Firmware version"
+
+status_led:
+  pin: GPIO13
+
+time:
+  - platform: sntp
+    id: my_time

@@ -18,8 +18,10 @@ ota:
 
 sensor:
   - platform: wifi_signal
-    name: "WiFi Signal keuken screen"
+    name: "Keuken Screen WiFi Signal"
     update_interval: 60s
+  - platform: uptime
+    name: "Wasmachine Uptime"
 
 binary_sensor:
 - platform: gpio
@@ -33,9 +35,9 @@ binary_sensor:
       - lambda: |
           if (id(my_cover).current_operation == COVER_OPERATION_IDLE) {
             // Cover is idle, if at one end change direction
-            if (id(my_cover).position < 0.1) {
+            if (id(my_cover).position < 0.02) {
               id(my_cover).open();
-            } else if (id(my_cover).position > 0.9) {
+            } else if (id(my_cover).position > 0.98) {
               id(my_cover).close();
             } else {
               // check last direction and either open or close cover.
@@ -69,10 +71,11 @@ cover:
   id: my_cover
   open_action:
     - switch.turn_on: open_cover
-  open_duration: 45s
+  open_duration: 50s
   close_action:
     - switch.turn_on: close_cover
-  close_duration: 45s
+  close_duration: 50s
+  # actually 45s would be more than enough for closing but lets keep it the same
   stop_action:
     - switch.turn_off: open_cover
     - switch.turn_off: close_cover
@@ -82,3 +85,7 @@ globals:
     type: bool
     restore_value: no
     initial_value: 'false'
+  
+text_sensor:
+  - platform: version
+    name: "Keuken Screen Firmware version"
