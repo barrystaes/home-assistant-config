@@ -1,0 +1,26 @@
+esphome:
+  name: test_esp01_knop
+  platform: ESP8266
+  board: esp01_1m
+
+# ESP01 esp8266
+# First flash: 3.3v ftdi
+
+wifi:
+  ssid: !secret esphome_wifi_ssid
+  password: !secret esphome_wifi_password
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+sensor:
+  - platform: wifi_signal
+    name: "TestEsp01Knop WiFi Signal"
+    update_interval: 60s
+  - platform: uptime
+    name: "TestEsp01Knop Uptime"

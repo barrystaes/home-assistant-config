@@ -1,0 +1,75 @@
+esphome:
+  name: test_sonoff_tx_t2eu2c
+  platform: ESP8266
+  board: esp01_1m
+
+# Sonoff TX T2EU2C (wall switch)
+# First flash: short pin ( https://github.com/arendst/Sonoff-Tasmota/issues/5918 ) of ESP with GND, used 3.3V FTDI
+# Pinout: testing with similar product pinout seems compatible https://esphome.io/devices/sonoff_t1_uk_3gang_v1.1.html
+
+wifi:
+  ssid: !secret esphome_wifi_ssid
+  password: !secret esphome_wifi_password
+
+api:
+
+logger:
+
+ota:
+
+sensor:
+  - platform: wifi_signal
+    name: "Test TXswitch WiFi Signal"
+    update_interval: 60s
+  - platform: uptime
+    name: "Test TXswitch Uptime"
+  
+text_sensor:
+  - platform: version
+    name: "Test TXswitch Firmware version"
+    
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO0
+      mode: INPUT_PULLUP
+      inverted: True
+    name: "Test TXswitch Touchpad 1"
+  - platform: gpio
+    pin:
+      number: GPIO9
+      mode: INPUT_PULLUP
+      inverted: True
+    name: "Test TXswitch Touchpad 2"
+  - platform: gpio
+    pin:
+      number: GPIO10
+      mode: INPUT_PULLUP
+      inverted: True
+    name: "Test TXswitch Touchpad 3"
+  - platform: status
+    name: "Test TXswitch Status"
+
+switch:
+  - platform: gpio
+    name: "Test TXswitch Relay 1"
+    pin: GPIO12
+  - platform: gpio
+    name: "Test TXswitch Relay 2"
+    pin: GPIO5
+  - platform: gpio
+    name: "Test TXswitch Relay 3"
+    pin: GPIO4
+
+output:
+  # Register the blue LED as a dimmable output ....
+  - platform: esp8266_pwm
+    id: blue_led
+    pin: GPIO13
+    inverted: True
+
+light:
+  # ... and then make a light out of it.
+  - platform: monochromatic
+    name: "Test TXswitch Blue LED"
+    output: blue_led

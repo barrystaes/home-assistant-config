@@ -21,7 +21,7 @@ sensor:
     name: "Keuken Screen WiFi Signal"
     update_interval: 60s
   - platform: uptime
-    name: "Wasmachine Uptime"
+    name: "Keuken Screen Uptime"
 
 binary_sensor:
 - platform: gpio
