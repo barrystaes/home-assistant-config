@@ -10,7 +10,7 @@ views:
         name: Kast
         type: light
       - entities:
-          - entity: cover.screen
+          - entity: cover.screen3
         show_header_toggle: false
         title: Keuken
         type: entities
