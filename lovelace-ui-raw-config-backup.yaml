@@ -135,20 +135,22 @@ views:
         type: horizontal-stack
       - cards:
           - detail: 2
-            entity: sensor.rt_ac3200_kbyte_sec_sent
+            entity: sensor.rt_ac3200_kb_sec_sent
             graph: line
             name: Upload
             type: sensor
           - detail: 2
-            entity: sensor.rt_ac3200_kbyte_sec_received
+            entity: sensor.rt_ac3200_kb_sec_received
             graph: line
             name: Download
             type: sensor
         type: horizontal-stack
       - entities:
-          - sensor.rt_ac3200_kbyte_sec_sent
-          - sensor.rt_ac3200_kbyte_sec_received
+          - entity: sensor.rt_ac3200_kb_sec_sent
+          - entity: sensor.rt_ac3200_kb_sec_received
         type: history-graph
+        hours_to_show: 24
+        refresh_interval: 0
       - entities:
           - entity: sensor.keuken_screen_wifi_signal
             name: Keuken screen
@@ -158,8 +160,11 @@ views:
             name: Wesp
           - entity: sensor.wasmachine_wifi_signal
             name: Wasmachine
+          - entity: sensor.test_txswitch_wifi_signal
         title: Wifi Signal
         type: history-graph
+        hours_to_show: 24
+        refresh_interval: 0
       - entities:
           - entity: sensor.cresta_2a01_bat
           - entity: sensor.cresta_2d01_bat
