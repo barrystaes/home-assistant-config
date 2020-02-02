@@ -1,0 +1,213 @@
+# Backup of Lovelace yaml via "Configure UI" > "Raw config editor" option.
+title: Thuis
+views:
+  - badges: []
+    cards:
+      - entities:
+          - entity: switch.woonkamer_sfeerlicht
+        type: entities
+      - entity: light.woonkamer_kast_light_rgb
+        name: Kast
+        type: light
+      - entities:
+          - entity: cover.screen
+        show_header_toggle: false
+        title: Keuken
+        type: entities
+    icon: ''
+    panel: false
+    title: Bediening
+  - badges: []
+    cards:
+      - columns: 5
+        entities:
+          - entity: sensor.cresta_2a01_temp
+          - entity: sensor.cresta_2d01_temp
+          - entity: sensor.cresta_6603_temp
+          - entity: sun.sun
+          - entity: sensor.yr_symbol
+        show_icon: true
+        show_state: true
+        title: Glance overzicht
+        type: glance
+      - cards:
+          - entities:
+              - entity: sensor.cresta_2a01_temp
+                name: Buiten
+              - entity: sensor.cresta_2d01_temp
+                name: Woonkamer
+              - entity: sensor.cresta_6603_temp
+                name: Keuken
+            title: Temperatuur
+            type: history-graph
+          - entities:
+              - entity: sensor.cresta_2a01_hum
+                name: Buiten
+              - entity: sensor.cresta_2d01_hum
+                name: Woonkamer
+              - entity: sensor.cresta_6603_hum
+                name: Keuken
+            title: Vochtigheid
+            type: history-graph
+        type: vertical-stack
+    icon: ''
+    path: klimaat
+    title: Klimaat
+  - badges: []
+    cards:
+      - cards:
+          - cards:
+              - entity: sensor.trash_today
+                name: Vandaag
+                state_image:
+                  Geen: /local/mijnafvalwijzer/kliko3.png
+                  gft: /local/mijnafvalwijzer/gft3.png
+                  kerstbomen: /local/mijnafvalwijzer/kliko3.png
+                  papier: /local/mijnafvalwijzer/papier3.png
+                  pmd: /local/mijnafvalwijzer/plastic3.png
+                  restafval: /local/mijnafvalwijzer/rest3.png
+                type: picture-entity
+              - entity: sensor.trash_tomorrow
+                name: Morgen
+                state_image:
+                  Geen: /local/mijnafvalwijzer/kliko3.png
+                  gft: /local/mijnafvalwijzer/gft3.png
+                  kerstbomen: /local/mijnafvalwijzer/kliko3.png
+                  papier: /local/mijnafvalwijzer/papier3.png
+                  pmd: /local/mijnafvalwijzer/plastic3.png
+                  restafval: /local/mijnafvalwijzer/rest3.png
+                type: picture-entity
+            type: horizontal-stack
+          - entities:
+              - entity: sensor.trash_gft
+                name: GFT
+              - entity: sensor.trash_papier
+                name: Papier
+              - entity: sensor.trash_pmd
+                name: Plastic
+              - entity: sensor.trash_restafval
+                name: Restafval
+            type: glance
+          - entities:
+              - sensor.trash_next
+              - input_boolean.trash_moved
+              - input_boolean.trash_reminder
+            show_header_toggle: false
+            type: entities
+        type: vertical-stack
+      - entities:
+          - entity: sensor.trash_next
+          - entity: sensor.trash_firstwastetype
+          - entity: sensor.trash_firstdate
+        show_header_toggle: false
+        title: Afvalwijzer
+        type: entities
+      - entities:
+          - entity: alert.brievenbus_post
+          - entity: alert.chins_overhit
+        show_header_toggle: false
+        title: Meldingen
+        type: entities
+    icon: ''
+    title: Info
+  - badges: []
+    cards:
+      - cards:
+          - detail: 2
+            entity: sensor.power_consumption
+            graph: line
+            name: Stroom
+            type: sensor
+          - detail: 2
+            entity: sensor.hourly_gas_consumption
+            graph: line
+            name: Stroom
+            type: sensor
+        type: horizontal-stack
+      - cards:
+          - detail: 2
+            entity: sensor.pi_hole_ads_blocked_today
+            graph: line
+            type: sensor
+          - entity: switch.pihole_switch
+            icon: 'mdi:shield-link-variant'
+            type: entity-button
+        type: horizontal-stack
+      - cards:
+          - detail: 2
+            entity: sensor.rt_ac3200_kbyte_sec_sent
+            graph: line
+            name: Upload
+            type: sensor
+          - detail: 2
+            entity: sensor.rt_ac3200_kbyte_sec_received
+            graph: line
+            name: Download
+            type: sensor
+        type: horizontal-stack
+      - entities:
+          - sensor.rt_ac3200_kbyte_sec_sent
+          - sensor.rt_ac3200_kbyte_sec_received
+        type: history-graph
+      - entities:
+          - entity: sensor.keuken_screen_wifi_signal
+            name: Keuken screen
+          - entity: sensor.woonkamer_kast_light_wifi_signal
+            name: Kamer kast RGB
+          - entity: sensor.wesp_wifi_signal_sensor
+            name: Wesp
+          - entity: sensor.wasmachine_wifi_signal
+            name: Wasmachine
+        title: Wifi Signal
+        type: history-graph
+      - entities:
+          - entity: sensor.cresta_2a01_bat
+          - entity: sensor.cresta_2d01_bat
+          - entity: sensor.cresta_6603_bat
+        show_state: true
+        title: Batterijen
+        type: glance
+      - entities:
+          - icon: 'mdi:link'
+            name: Grafana
+            type: weblink
+            url: 'https://***.***.***.***:***/'
+        show_header_toggle: false
+        title: Links
+        type: entities
+    icon: 'mdi:gauge'
+    panel: false
+    title: Meterkast
+  - badges: []
+    cards:
+      - entities:
+          - entity: automation.woonkamer_verlichting_aan
+          - entity: automation.woonkamer_verlichting_uit
+        show_header_toggle: false
+        title: Automatisering
+        type: entities
+      - entities:
+          - binary_sensor.deur_berging
+          - binary_sensor.brievenbus
+          - binary_sensor.beweging
+        show_header_toggle: false
+        title: Ramen & Deuren
+        type: entities
+      - entities:
+          - entity: sensor.wasmachine_power
+          - entity: sensor.wasmachine_total_daily_energy
+          - entity: switch.wasmachine_switch
+          - entity: sensor.wasmachine_voltage
+          - entity: sensor.wasmachine_current
+          - entity: sensor.wasmachine_uptime
+          - entity: sensor.wasmachine_firmware_version
+          - entity: sensor.wasmachine_wifi_signal
+        show_header_toggle: false
+        title: Wasmachine
+        type: entities
+      - entities:
+          - entity: sensor.wasmachine_power
+          - entity: sensor.prepkoogeek_power
+        title: Powerplugs
+        type: history-graph
+    title: NERD/TEST
