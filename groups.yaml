@@ -67,7 +67,6 @@ deuren:
 
 trash:
   name: Vuilnis
-  control: hidden
   entities:
     - sensor.trash_today
     - sensor.trash_tomorrow

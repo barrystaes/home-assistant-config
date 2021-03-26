@@ -61,8 +61,8 @@
 - alias: Trash has not been moved
   trigger:
     platform: time_pattern
-    minutes: '/30'
-    seconds: 00
+    minutes: /30
+    seconds: 0
   condition:
     condition: and
     conditions:
@@ -76,13 +76,16 @@
         after: '17:00:00'
         before: '23:00:00'
       - condition: template
-        value_template: "{{ states('sensor.trash_tomorrow') != 'Geen' }}"
+      value_template: '{{ states(''sensor.trash_tomorrow'') != ''Geen'' }}'
   action:
     - service: notify.family
       data:
-        title: "Afval"
-        message: 'Het is vandaag - {{ now().strftime("%d-%m-%Y") }}. Afvaltype(n): {{ states.sensor.trash_tomorrow.state }} wordt opgehaald op: {{ (as_timestamp(now()) + (24*3600)) | timestamp_custom("%d-%m-%Y", True) }}!'
+      title: Afval
+      message: 'Het is vandaag - {{ now().strftime("%d-%m-%Y") }}. Afvaltype(n): {{
+        states.sensor.trash_tomorrow.state }} wordt opgehaald op: {{ (as_timestamp(now())
+        + (24*3600)) | timestamp_custom("%d-%m-%Y", True) }}!'
         data:
           push:
             badge: 0
-            category: 'afval'
+          category: afval
+  id: 0701cc012f234ba4915b6b318b1cbb35
