@@ -1,6 +1,5 @@
 meterstanden:
   name: Meterstand
-  control: hidden
   entities:
     - sensor.power_consumption_low
     - sensor.power_consumption_normal
@@ -11,7 +10,6 @@ meterstanden:
 
 meterverbruik:
   name: Meter verbruik
-  control: hidden
   entities:
     - sensor.power_consumption
     - sensor.power_tariff
@@ -21,14 +19,12 @@ meterverbruik:
 
 internet:
   name: Internet
-  control: hidden
   entities:
     - switch.pihole_switch
     - sensor.pi_hole_ads_blocked_today
-    
+
 klimaat:
   name: Klimaat
-  control: hidden
   entities:
     - sensor.cresta_2a01_temp
     - sensor.cresta_2a01_hum
@@ -36,10 +32,9 @@ klimaat:
     - sensor.cresta_2d01_hum
     - sensor.cresta_6603_temp
     - sensor.cresta_6603_hum
-    
+
 battery:
   name: Batterijen
-  control: hidden
   entities:
     - sensor.cresta_2a01_bat
     - sensor.cresta_2d01_bat
@@ -47,12 +42,11 @@ battery:
 
 deuren:
   name: Ramen & Deuren
-  control: hidden
   entities:
     - binary_sensor.deur_berging
     - binary_sensor.brievenbus
     - binary_sensor.beweging
-    
+
 weer:
   name: Buienradar 5 minuten
   entities:
