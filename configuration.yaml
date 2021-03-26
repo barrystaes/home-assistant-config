@@ -52,6 +52,14 @@ rflink:
 # 10;status;
 # 20;02;STATUS;setRF433=ON;setNodoNRF=OFF;setMilight=OFF;setLivingColors=OFF;setAnsluta=OFF;setGPIO=OFF;setBLE=OFF;setMysensors=OFF;
 
+# Pi-Hole is deprecated for HA, look into AdGuard instead?  https://community.home-assistant.io/t/home-assistant-community-add-on-pi-hole/33817
+# pi_hole:
+#   - host: !secret pihole_host
+#     api_key: !secret pihole_apikey
+#     name: pi_hole
+#     ssl: false
+#     verify_ssl: false
+
 # Text to speech
 #tts:
 #  - platform: google_translate
