@@ -45,19 +45,6 @@
       entity_id: input_boolean.trash_moved
     - service: input_boolean.turn_on
       entity_id: input_boolean.trash_reminder
-
-# Afvalwijzer
-#- alias: Mark trash as moved from notification
-#  trigger:
-#    platform: event
-#    event_type: ios.notification_action_fired
-#    event_data:
-#      actionName: MARK_TRASH_MOVED
-#  action:
-#    - service: input_boolean.turn_on
-#      entity_id: input_boolean.trash_moved
-
-# Afvalwijzer
 - alias: Trash has not been moved
   trigger:
     platform: time_pattern
