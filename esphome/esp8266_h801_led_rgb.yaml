@@ -60,6 +60,7 @@ light:
       - random:
       - flicker:
       - strobe:
+    restore_mode: RESTORE_DEFAULT_ON
   
 text_sensor:
   - platform: version

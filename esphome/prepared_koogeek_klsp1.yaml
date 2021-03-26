@@ -42,6 +42,7 @@ switch:
   - platform: gpio
     id: relay
     pin: GPIO14
+    restore_mode: RESTORE_DEFAULT_ON
 
 output:
   - platform: esp8266_pwm
