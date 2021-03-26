@@ -53,17 +53,17 @@ deuren:
     - binary_sensor.brievenbus
     - binary_sensor.beweging
     
-#weer:
-#  name: Buienradar 5 minuten
-#  control: hidden
-#  entities:
-#    - sensor.br_symbol
-#    - sensor.br_humidity
-#    - sensor.br_temperature
-#    - sensor.br_wind_speed
-#    - sensor.br_pressure
-#    - sensor.br_rainchance_1d
-#    - sensor.br_rain_1d
+weer:
+  name: Buienradar 5 minuten
+  entities:
+    - sensor.br_symbol
+    - sensor.br_humidity
+    - sensor.br_temperature
+    - sensor.br_wind_speed
+    - sensor.br_pressure
+    - sensor.br_rainchance_1d
+    - sensor.br_rain_1d
+
 
 trash:
   name: Vuilnis

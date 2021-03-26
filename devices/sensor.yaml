@@ -43,6 +43,16 @@
     cresta_2a01_temp:
       #name: Cresta_buiten_temp
       sensor_type: temperature
+- platform: buienradar
+  timeframe: 5
+  monitored_conditions:
+    - symbol
+    - humidity
+    - temperature
+    - windspeed
+    - pressure
+    - rainchance_1d
+    - rain_1d
 - platform: afvalwijzer
   url: "afvalstoffendienstkalender.nl"
   postcode: !secret afvalwijzer_postcode
