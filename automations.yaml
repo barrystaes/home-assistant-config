@@ -37,7 +37,7 @@
   trigger:
     platform: state
     entity_id: input_boolean.trash_moved
-    to: 'on'
+    to: "on"
     for:
       hours: 12
   action:
@@ -45,6 +45,7 @@
       entity_id: input_boolean.trash_moved
     - service: input_boolean.turn_on
       entity_id: input_boolean.trash_reminder
+  id: d44e8a0e4e2b42668491f0a412800454
 - alias: Trash has not been moved
   trigger:
     platform: time_pattern
@@ -55,20 +56,21 @@
     conditions:
       - condition: state
         entity_id: input_boolean.trash_moved
-        state: 'off'
+        state: "off"
       - condition: state
         entity_id: input_boolean.trash_reminder
-        state: 'on'
+        state: "on"
       - condition: time
-        after: '17:00:00'
-        before: '23:00:00'
+        after: "17:00:00"
+        before: "23:00:00"
       - condition: template
-      value_template: '{{ states(''sensor.trash_tomorrow'') != ''Geen'' }}'
+        value_template: "{{ states('sensor.trash_tomorrow') != 'Geen' }}"
   action:
     - service: notify.family
       data:
       title: Afval
-      message: 'Het is vandaag - {{ now().strftime("%d-%m-%Y") }}. Afvaltype(n): {{
+        message:
+          'Het is vandaag - {{ now().strftime("%d-%m-%Y") }}. Afvaltype(n): {{
         states.sensor.trash_tomorrow.state }} wordt opgehaald op: {{ (as_timestamp(now())
         + (24*3600)) | timestamp_custom("%d-%m-%Y", True) }}!'
         data:
