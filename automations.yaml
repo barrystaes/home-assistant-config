@@ -1,38 +1,35 @@
-# Woonkamer on
 - alias: Woonkamer verlichting aan
   trigger:
-    - platform: event  # not using state, because double-pressing can happen
+    - platform: event
       event_type: button_pressed
       event_data:
         entity_id: switch.woonkamer_sfeerlicht
-        state: 'on'
+        state: "on"
     - platform: state
       entity_id: switch.woonkamer_sfeerlicht
-      to: 'on'
+      to: "on"
   action:
     service: light.turn_on
     data:
       entity_id:
         - light.woonkamer_kast_light_rgb
-
-# Woonkamer off
+  id: 0a63337012ac4a669ef8c3b3f2334149
 - alias: Woonkamer verlichting uit
   trigger:
-    - platform: event  # not using state, because double-pressing can happen
+    - platform: event
       event_type: button_pressed
       event_data:
         entity_id: switch.woonkamer_sfeerlicht
-        state: 'off'
+        state: "off"
     - platform: state
       entity_id: switch.woonkamer_sfeerlicht
-      to: 'off'
+      to: "off"
   action:
     service: light.turn_off
     data:
       entity_id:
         - light.woonkamer_kast_light_rgb
-
-# Afvalwijzer
+  id: f3a02e61f05849368ecedb0568a6e33a
 - alias: Reset trash notification
   trigger:
     platform: state
@@ -68,13 +65,42 @@
   action:
     - service: notify.family
       data:
-      title: Afval
+        title: Afval
         message:
           'Het is vandaag - {{ now().strftime("%d-%m-%Y") }}. Afvaltype(n): {{
-        states.sensor.trash_tomorrow.state }} wordt opgehaald op: {{ (as_timestamp(now())
-        + (24*3600)) | timestamp_custom("%d-%m-%Y", True) }}!'
+          states.sensor.trash_tomorrow.state }} wordt opgehaald op: {{ (as_timestamp(now())
+          + (24*3600)) | timestamp_custom("%d-%m-%Y", True) }}!'
         data:
           push:
             badge: 0
-          category: afval
+            category: afval
   id: 0701cc012f234ba4915b6b318b1cbb35
+- id: "1594161074515"
+  alias: New Automation test wasmachine klaar
+  description: ""
+  trigger:
+    - below: 1
+      device_id: cde3212c323549d99e84ecc27ea497ab
+      domain: sensor
+      entity_id: sensor.wasmachine_power
+      for:
+        hours: 0
+        minutes: 5
+        seconds: 0
+      platform: device
+      type: value
+  condition:
+    - condition: device
+      device_id: cde3212c323549d99e84ecc27ea497ab
+      domain: switch
+      entity_id: switch.wasmachine_switch
+      type: is_off
+  action:
+    - device_id: d9969b054a4044669a39f81fc0912011
+      domain: light
+      entity_id: light.leeslamp
+      type: flash
+    - device_id: 4d620fcf1b4f42cc8d01fad4004d5876
+      domain: light
+      entity_id: light.sfeerlamp_boven
+      type: flash
