@@ -22,9 +22,9 @@ http:
   base_url: !secret http_base_url
   ssl_certificate: /ssl/fullchain.pem
   ssl_key: /ssl/privkey.pem
-  
-hacs:
-  token: !secret hacs_github_token
+
+# hacs:
+#   token: !secret hacs_github_token
 
 # Discover some devices automatically
 #discovery:
@@ -90,9 +90,9 @@ influxdb:
 #    title: Grafana
 #    icon: mdi:chart-timeline
 #    url: !secret panel_iframe_grafana_url
-    
+
 recorder:
-  purge_keep_days: 3
+  purge_keep_days: 30
 
 logger:
   default: error
