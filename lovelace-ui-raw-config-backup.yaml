@@ -4,16 +4,12 @@ views:
   - badges: []
     cards:
       - entities:
-          - entity: switch.woonkamer_sfeerlicht
-        type: entities
-      - entity: light.woonkamer_kast_light_rgb
-        name: Kast
-        type: light
-      - entities:
           - entity: cover.screen3
+            name: Keuken Screen
+          - entity: cover.woonkamer_rolluik
         show_header_toggle: false
-        title: Keuken
         type: entities
+        title: Rolluiken
     icon: ""
     panel: false
     title: Bediening
@@ -25,7 +21,6 @@ views:
           - entity: sensor.cresta_2d01_temp
           - entity: sensor.cresta_6603_temp
           - entity: sun.sun
-          - entity: sensor.yr_symbol
         show_icon: true
         show_state: true
         title: Glance overzicht
@@ -55,99 +50,10 @@ views:
     title: Klimaat
   - badges: []
     cards:
-      - cards:
-          - cards:
-              - entity: sensor.trash_today
-                name: Vandaag
-                state_image:
-                  Geen: /local/mijnafvalwijzer/kliko3.png
-                  gft: /local/mijnafvalwijzer/gft3.png
-                  kerstbomen: /local/mijnafvalwijzer/kliko3.png
-                  papier: /local/mijnafvalwijzer/papier3.png
-                  pmd: /local/mijnafvalwijzer/plastic3.png
-                  restafval: /local/mijnafvalwijzer/rest3.png
-                type: picture-entity
-              - entity: sensor.trash_tomorrow
-                name: Morgen
-                state_image:
-                  Geen: /local/mijnafvalwijzer/kliko3.png
-                  gft: /local/mijnafvalwijzer/gft3.png
-                  kerstbomen: /local/mijnafvalwijzer/kliko3.png
-                  papier: /local/mijnafvalwijzer/papier3.png
-                  pmd: /local/mijnafvalwijzer/plastic3.png
-                  restafval: /local/mijnafvalwijzer/rest3.png
-                type: picture-entity
-            type: horizontal-stack
-          - entities:
-              - entity: sensor.trash_gft
-                name: GFT
-              - entity: sensor.trash_papier
-                name: Papier
-              - entity: sensor.trash_pmd
-                name: Plastic
-              - entity: sensor.trash_restafval
-                name: Restafval
-            type: glance
-          - entities:
-              - sensor.trash_next
-              - input_boolean.trash_moved
-              - input_boolean.trash_reminder
-            show_header_toggle: false
-            type: entities
-        type: vertical-stack
-      - entities:
-          - entity: sensor.trash_next
-          - entity: sensor.trash_firstwastetype
-          - entity: sensor.trash_firstdate
-        show_header_toggle: false
-        title: Afvalwijzer
-        type: entities
-      - entities:
-          - entity: alert.brievenbus_post
-          - entity: alert.chins_overhit
-        show_header_toggle: false
-        title: Meldingen
-        type: entities
-    icon: ""
-    title: Info
-  - badges: []
-    cards:
-      - cards:
-          - detail: 2
-            entity: sensor.power_consumption
-            graph: line
-            name: Stroom
-            type: sensor
-          - detail: 2
-            entity: sensor.hourly_gas_consumption
-            graph: line
-            name: Gas
-            type: sensor
-        type: horizontal-stack
       - entity: switch.pihole_switch
         icon: mdi:shield-link-variant
         name: Pi-hole
         type: entity-button
-      - cards:
-          - detail: 2
-            entity: sensor.rt_ac3200_kib_sec_sent
-            graph: line
-            icon: mdi:upload
-            name: Upload
-            type: sensor
-          - detail: 2
-            entity: sensor.rt_ac3200_kib_sec_received
-            graph: line
-            icon: mdi:download
-            name: Download
-            type: sensor
-        type: horizontal-stack
-      - entities:
-          - entity: sensor.rt_ac3200_kib_sec_sent
-          - entity: sensor.rt_ac3200_kib_sec_received
-        hours_to_show: 24
-        refresh_interval: 0
-        type: history-graph
       - entities:
           - entity: sensor.keuken_screen_wifi_signal
             name: Keuken screen
@@ -175,19 +81,6 @@ views:
   - badges: []
     cards:
       - entities:
-          - entity: automation.woonkamer_verlichting_aan
-          - entity: automation.woonkamer_verlichting_uit
-        show_header_toggle: false
-        title: Automatisering
-        type: entities
-      - entities:
-          - binary_sensor.deur_berging
-          - binary_sensor.brievenbus
-          - binary_sensor.beweging
-        show_header_toggle: false
-        title: Ramen & Deuren
-        type: entities
-      - entities:
           - entity: sensor.wasmachine_power
           - entity: sensor.wasmachine_total_daily_energy
           - entity: switch.wasmachine_switch
@@ -206,18 +99,4 @@ views:
         refresh_interval: 0
         title: Powerplugs
         type: history-graph
-      - entities:
-          - entity: binary_sensor.is_chins_overheat
-        hours_to_show: 72
-        refresh_interval: 0
-        title: Chin overhit 3 dagen
-        type: history-graph
     title: NERD/TEST
-  - title: Media
-    path: media
-    icon: mdi:movie-open-star
-    badges: []
-    cards:
-      - type: entities
-        entities:
-          - sensor.sonarr_upcoming
