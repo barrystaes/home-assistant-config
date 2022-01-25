@@ -23,9 +23,6 @@ http:
   ssl_certificate: /ssl/fullchain.pem
   ssl_key: /ssl/privkey.pem
 
-# hacs :
-#   token: !secret hacs_github_token
-
 # Discover some devices automatically
 #discovery:
 
@@ -52,25 +49,9 @@ rflink:
 # 10;status;
 # 20;02;STATUS;setRF433=ON;setNodoNRF=OFF;setMilight=OFF;setLivingColors=OFF;setAnsluta=OFF;setGPIO=OFF;setBLE=OFF;setMysensors=OFF;
 
-# Pi-Hole is deprecated for HA, look into AdGuard instead?  https://community.home-assistant.io/t/home-assistant-community-add-on-pi-hole/33817
-# pi_hole:
-#   - host: !secret pihole_host
-#     api_key: !secret pihole_apikey
-#     name: pi_hole
-#     ssl: false
-#     verify_ssl: false
-
 # Text to speech
 #tts:
 #  - platform: google_translate
-
-#media_player:
-#  - platform: plex
-#  - platform: spotify
-#    client_id: !secret spotify_client_id
-#    client_secret: !secret spotify_client_secret
-#    aliases:
-#      4a4eece177e2ddd2996edc30482fa2d6: 'TV'
 
 group: !include groups.yaml
 automation: !include automations.yaml
@@ -84,12 +65,6 @@ influxdb:
   password: !secret influxdb_password
   max_retries: 3
   default_measurement: state
-
-#panel_iframe:
-#  grafana:
-#    title: Grafana
-#    icon: mdi:chart-timeline
-#    url: !secret panel_iframe_grafana_url
 
 recorder:
   purge_keep_days: 30
