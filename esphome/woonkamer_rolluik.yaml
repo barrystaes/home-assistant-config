@@ -1,5 +1,5 @@
 esphome:
-  name: keuken_screen
+  name: woonkamer_rolluik
   platform: ESP8266
   board: esp01_1m
 
@@ -18,10 +18,10 @@ ota:
 
 sensor:
   - platform: wifi_signal
-    name: "Keuken Screen WiFi Signal"
+    name: "Woonkamer Rolluik WiFi Signal"
     update_interval: 60s
   - platform: uptime
-    name: "Keuken Screen Uptime"
+    name: "Woonkamer Rolluik Uptime"
 
 binary_sensor:
 - platform: gpio
@@ -67,7 +67,7 @@ switch:
 
 cover:
 - platform: time_based
-  name: "Screen"
+  name: "Woonkamer Rolluik"
   id: my_cover
   open_action:
     - switch.turn_on: open_cover
@@ -88,4 +88,4 @@ globals:
   
 text_sensor:
   - platform: version
-    name: "Keuken Screen Firmware version"
+    name: "Woonkamer Rolluik Firmware version"
