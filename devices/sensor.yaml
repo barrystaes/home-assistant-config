@@ -1,14 +1,3 @@
-- platform: yr
-#- platform: postnl
-#  username: !secret postnl_username
-#  password: !secret postnl_password
-#- platform: plex
-#  host: !secret plex_host
-#  port: !secret plex_port
-#  name: Plex
-#  token: !secret plex_token
-#  ssl: true
-#  verify_ssl: false
 - platform: dsmr
   host: !secret dsmr_host
   port: !secret dsmr_port
@@ -43,19 +32,3 @@
     cresta_2a01_temp:
       #name: Cresta_buiten_temp
       sensor_type: temperature
-- platform: buienradar
-  timeframe: 5
-  monitored_conditions:
-    - symbol
-    - humidity
-    - temperature
-    - windspeed
-    - pressure
-    - rainchance_1d
-    - rain_1d
-- platform: afvalwijzer
-  url: "afvalstoffendienstkalender.nl"
-  postcode: !secret afvalwijzer_postcode
-  huisnummer: !secret afvalwijzer_huisnummer
-  toevoeging: !secret afvalwijzer_toevoeging
-  label_geen: "Geen"

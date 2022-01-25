@@ -1,7 +1,3 @@
-- platform: rflink
-  devices:
-    newkaku_0091ee0e_2: 
-      name: Woonkamer sfeerlicht
 - platform: command_line
   switches:
     pihole_switch:

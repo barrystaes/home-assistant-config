@@ -23,7 +23,7 @@ http:
   ssl_certificate: /ssl/fullchain.pem
   ssl_key: /ssl/privkey.pem
 
-# hacs:
+# hacs :
 #   token: !secret hacs_github_token
 
 # Discover some devices automatically
