@@ -10,6 +10,14 @@ views:
         show_header_toggle: false
         type: entities
         title: Rolluiken
+      - type: entities
+        entities:
+          - entity: scene.keuken_bright
+          - entity: scene.keuken_dimmed
+          - entity: scene.woonkamer_pinkelsteeltje
+          - entity: scene.woonkamer_gedimd
+        title: Scenes licht
+        state_color: true
     icon: ""
     panel: false
     title: Bediening
@@ -75,6 +83,20 @@ views:
         show_state: true
         title: Batterijen
         type: glance
+        state_color: false
+      - type: entities
+        entities:
+          - entity: sensor.rt_ac3200_kib_s_received
+          - entity: sensor.rt_ac3200_kib_s_sent
+          - entity: sensor.rt_ac3200_wan_status
+        title: Internet
+      - type: history-graph
+        entities:
+          - entity: sensor.rt_ac3200_kib_s_received
+          - entity: sensor.rt_ac3200_kib_s_sent
+        hours_to_show: 24
+        refresh_interval: 0
+        title: Internet
     icon: mdi:gauge
     panel: false
     title: Meterkast

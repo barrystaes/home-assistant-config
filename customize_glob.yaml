@@ -1,11 +1,5 @@
 # Zie ook customize.yaml
 
-# Verberg Slimme Meter sensors die niet werken (deels van verkeerde versie DSMR5)
-"sensor.voltage*":
-  hidden: true
-"sensor.power_production*":
-  hidden: true
-  
 # Buren dingen
 "light.chuango_*":
   hidden: true
