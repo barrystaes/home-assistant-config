@@ -28,49 +28,43 @@ http:
 
 # Devices
 sensor: !include devices/sensor.yaml
-
 binary_sensor: !include devices/binary_sensor.yaml
-
 switch: !include devices/switch.yaml
-
 light: !include devices/light.yaml
-
 notify: !include devices/notify.yaml
-
 alert: !include devices/alert.yaml
-
 input_boolean: !include devices/input_boolean.yaml
 
-rflink:
-  host: !secret rflink_host
-  port: !secret rflink_port
+#rflink:
+#  host: !secret rflink_host
+#  port: !secret rflink_port
 # RFLink version+config: (output seen via USB in RFLinkLoader v1.11)
 # 20;01;VER=1.1;REV=48;BUILD=04;
 # 10;status;
 # 20;02;STATUS;setRF433=ON;setNodoNRF=OFF;setMilight=OFF;setLivingColors=OFF;setAnsluta=OFF;setGPIO=OFF;setBLE=OFF;setMysensors=OFF;
 
 # Text to speech
-#tts:
-#  - platform: google_translate
+tts:
+  - platform: google_translate
 
 group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
+scene: !include scenes.yaml
 
-influxdb:
-  host: !secret influxdb_host
-  port: !secret influxdb_port
-  database: homeassistant
-  username: !secret influxdb_username
-  password: !secret influxdb_password
-  max_retries: 3
-  default_measurement: state
+# influxdb:
+#   host: !secret influxdb_host
+#   port: !secret influxdb_port
+#   database: homeassistant
+#   username: !secret influxdb_username
+#   password: !secret influxdb_password
+#   max_retries: 3
+#   default_measurement: state
 
 recorder:
   purge_keep_days: 30
-
-logger:
-  default: error
-  logs:
-    rflink: debug
-    homeassistant.components.rflink: debug
+#  default: error
+#  logs:
+#    rflink: debug
+#    homeassistant.components.rflink: debug
+#    homeassistant.components.rflink: debug
