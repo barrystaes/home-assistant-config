@@ -4,46 +4,80 @@
   trigger:
   - platform: sun
     event: sunrise
-  condition: []
+  - platform: time
+    at: 07:30:00
+  condition:
+  - condition: time
+    after: 07:29:00
+    before: '12:00:00'
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+    - sat
+    - sun
   action:
   - device_id: c3f93ba35defef698e16a6b54a8a99ff
     domain: cover
     entity_id: cover.woonkamer_rolluik
-    type: set_position
-    position: 100
+    type: open
+  - device_id: 459757ebedc4cb6d2d77881b4ce5c954
+    domain: cover
+    entity_id: cover.keuken_sunscreen
+    type: close
+    enabled: false
   mode: single
 - id: '1644864003894'
-  alias: Zon onder
+  alias: Zon onder -60m Lampen aan
   description: ''
   trigger:
   - platform: sun
     event: sunset
-    offset: '0'
+    offset: -00:60:00
+  - platform: time
+    at: '20:00:00'
   condition: []
   action:
-  - device_id: c3f93ba35defef698e16a6b54a8a99ff
-    domain: cover
-    entity_id: cover.woonkamer_rolluik
-    type: set_position
-    position: 0
   - scene: scene.woonkamer_pinkelsteeltje
   - device_id: 459757ebedc4cb6d2d77881b4ce5c954
     domain: cover
     entity_id: cover.keuken_sunscreen
     type: set_position
     position: 100
+    enabled: true
+  - device_id: b59680528b5c8aa882134f23701daed5
+    domain: cover
+    entity_id: d8e5161087599e961f75ed71d390980f
+    type: open
   mode: single
 - id: '1644914447272'
-  alias: Keuken overhit
+  alias: Keuken overhit Rolluik dicht
   description: ''
   trigger:
   - platform: numeric_state
     entity_id: sensor.keuken_hue_motion_sensor_temperature
-    above: '22'
+    above: '21'
     for:
       hours: 0
-      minutes: 30
+      minutes: 5
       seconds: 0
+  - platform: numeric_state
+    entity_id: sensor.environment_sensor_temperature_sensor
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    above: 21
+  - platform: numeric_state
+    entity_id: weather.thuis2022
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    attribute: temperature
+    above: input_number.mobairco_trigger
   condition:
   - condition: time
     after: 08:00
@@ -52,16 +86,442 @@
     entity_id: weather.thuis2022
     attribute: wind_speed
     below: '123'
+    enabled: false
   action:
   - device_id: 459757ebedc4cb6d2d77881b4ce5c954
     domain: cover
-    entity_id: cover.keuken_sunscreen
-    type: set_position
-    position: 0
+    entity_id: edbf4de1c51638096846d69aa1f84bfb
+    type: close
+  - device_id: b59680528b5c8aa882134f23701daed5
+    domain: cover
+    entity_id: d8e5161087599e961f75ed71d390980f
+    type: close
+  - service: scene.turn_on
+    target:
+      entity_id: scene.keuken_alarm
+    metadata: {}
+  mode: single
+- id: '1647884165688'
+  alias: Zon onder -30m Rolluik dicht
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: -00:30:00
+  condition: []
+  action:
+  - device_id: c3f93ba35defef698e16a6b54a8a99ff
+    domain: cover
+    entity_id: 4f8e9032345fd247c17ffd468ee13f3e
+    type: close
+  - device_id: 459757ebedc4cb6d2d77881b4ce5c954
+    domain: cover
+    entity_id: edbf4de1c51638096846d69aa1f84bfb
+    type: open
+    enabled: false
+  - device_id: b59680528b5c8aa882134f23701daed5
+    domain: cover
+    entity_id: d8e5161087599e961f75ed71d390980f
+    type: open
+    enabled: false
+  mode: single
+- id: '1661594809165'
+  alias: Keuken overhit Airco aan
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.keuken_hue_motion_sensor_temperature
+    above: input_number.mobairco_trigger
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  - platform: numeric_state
+    entity_id: sensor.environment_sensor_temperature_sensor
+    above: input_number.mobairco_trigger
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  condition:
+  - condition: time
+    after: 08:00
+    before: '20:00:00'
+    enabled: true
+  action:
   - type: turn_on
-    device_id: 14e4ca750b1c0a9ff5696ff3af340e60
-    entity_id: light.aanrecht_bar_kleur
+    device_id: 347462bc2e6879bbb73b496de1f7cdbc
+    entity_id: switch.aircomob_switch
+    domain: switch
+  mode: single
+- id: '1661595284639'
+  alias: Keuken overhit Airco uit
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.keuken_hue_motion_sensor_temperature
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    below: 23
+    enabled: false
+  - platform: numeric_state
+    entity_id: sensor.environment_sensor_temperature_sensor
+    for:
+      hours: 0
+      minutes: 30
+      seconds: 0
+    below: input_number.mobairco_trigger
+  condition:
+  - condition: time
+    after: 08:00
+    before: '18:00'
+    enabled: false
+  action:
+  - type: turn_off
+    device_id: 347462bc2e6879bbb73b496de1f7cdbc
+    entity_id: switch.aircomob_switch
+    domain: switch
+  mode: single
+- id: '1661626695591'
+  alias: Tag SweetTodayRondje is gescand
+  description: ''
+  trigger:
+  - platform: tag
+    tag_id: e0fc0726-fe82-4c5d-86a8-2ab064b7dafb
+  condition: []
+  action:
+  - device_id: bafd807fb3b7e26bde520732aff2ff48
     domain: light
-    flash: long
-    brightness_pct: 100
+    entity_id: light.bol
+    type: flash
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.nestmini9742
+    data:
+      media_content_id: media-source://tts/google_translate?message=Tag+was+scanned
+      media_content_type: provider
+    metadata:
+      title: Tag was scanned
+      thumbnail: https://brands.home-assistant.io/_/google_translate/logo.png
+      media_class: app
+      children_media_class:
+      navigateIds:
+      - {}
+      - media_content_type: app
+        media_content_id: media-source://tts
+      - media_content_type: provider
+        media_content_id: media-source://tts/google_translate?message=Tag+was+scanned
+  mode: single
+- id: '1661986130690'
+  alias: Plex added Movie
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: sensor.barryplexc_library_movies
+    id: movie
+  - platform: state
+    entity_id: sensor.barryplexc_library_movies_nl
+    id: movie
+  condition:
+  - condition: time
+    after: '10:00:00'
+    before: '22:00:00'
+  action:
+  - service: notify.mobile_app_tablet
+    data:
+      message: Added {{ last_added_item }} on {{ last_added_timestamp }}
+      title: Last Added Item v4
+    enabled: false
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.nestmini9742
+    data:
+      media_content_id: media-source://tts/google_translate?message=Added+movie+to+Plex
+      media_content_type: provider
+    metadata:
+      title: Added movie to Plex
+      thumbnail: https://brands.home-assistant.io/_/google_translate/logo.png
+      media_class: app
+      children_media_class:
+      navigateIds:
+      - {}
+      - media_content_type: app
+        media_content_id: media-source://tts
+      - media_content_type: provider
+        media_content_id: media-source://tts/google_translate?message=Added+movie+to+Plex
+  mode: single
+- id: '1672174783176'
+  alias: TV pause
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 24144f09cd2618c329d0d193f6262038
+    domain: media_player
+    entity_id: media_player.de_tv_3
+    type: paused
+  condition: []
+  action:
+  - type: turn_on
+    device_id: bafd807fb3b7e26bde520732aff2ff48
+    entity_id: light.bol
+    domain: light
+    flash: short
+  mode: single
+- id: '1672174831784'
+  alias: TV speelt
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 24144f09cd2618c329d0d193f6262038
+    domain: media_player
+    entity_id: media_player.de_tv_3
+    type: playing
+  condition: []
+  action:
+  - type: turn_off
+    device_id: bafd807fb3b7e26bde520732aff2ff48
+    entity_id: light.bol
+    domain: light
+  mode: single
+- id: '1675442562811'
+  alias: Zon onder -40m Rolluik spleet (voor kat)
+  description: Rolluik bijna dicht voor kat Gioia
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: -00:40:00
+  condition: []
+  action:
+  - device_id: c3f93ba35defef698e16a6b54a8a99ff
+    domain: cover
+    entity_id: cover.woonkamer_rolluik
+    type: set_position
+    position: 50
+  mode: single
+- id: '1675443206730'
+  alias: Plex added TV episode
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.barryplexc_library_tv_series
+    id: movie
+  - platform: state
+    entity_id:
+    - sensor.barryplexc_library_tv_series_nl
+    id: movie
+  condition:
+  - condition: time
+    before: '22:00:00'
+    after: '10:00:00'
+  action:
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.nestmini9742
+    data:
+      media_content_id: media-source://tts/google_translate?message=Added+TV+episode+to+Plex
+      media_content_type: provider
+    metadata:
+      title: Added TV episode to Plex
+      thumbnail: https://brands.home-assistant.io/_/google_translate/logo.png
+      media_class: app
+      children_media_class:
+      navigateIds:
+      - {}
+      - media_content_type: app
+        media_content_id: media-source://tts
+      - media_content_type: provider
+        media_content_id: media-source://tts/google_translate?message=Added+TV+episode+to+Plex
+  mode: single
+- id: '1692124127697'
+  alias: Assist play on Plex
+  description: ''
+  use_blueprint:
+    path: freakshock88/play_plex_media_using_assist.yaml
+    input:
+      media_player: media_player.de_tv
+      media_player_friendly_name: Plex
+      movies_library_name: Movies
+      tvshows_library_name: TV Series
+- id: '1693767542324'
+  alias: Keuken rolgordijn touchpad sluiten
+  description: ''
+  trigger:
+  - type: turned_on
+    platform: device
+    device_id: 459757ebedc4cb6d2d77881b4ce5c954
+    entity_id: 5b495992e6bd958f80003341b37f6f98
+    domain: binary_sensor
+  condition:
+  - condition: device
+    device_id: b59680528b5c8aa882134f23701daed5
+    domain: cover
+    entity_id: d8e5161087599e961f75ed71d390980f
+    type: is_closed
+    enabled: true
+  action:
+  - device_id: b59680528b5c8aa882134f23701daed5
+    domain: cover
+    entity_id: d8e5161087599e961f75ed71d390980f
+    type: open
+  mode: single
+- id: '1693809790187'
+  alias: Keuken rolgordijn touchpad openen
+  description: ''
+  trigger:
+  - type: turned_on
+    platform: device
+    device_id: 459757ebedc4cb6d2d77881b4ce5c954
+    entity_id: 5b495992e6bd958f80003341b37f6f98
+    domain: binary_sensor
+  condition:
+  - condition: device
+    device_id: b59680528b5c8aa882134f23701daed5
+    domain: cover
+    entity_id: d8e5161087599e961f75ed71d390980f
+    type: is_open
+  action:
+  - device_id: b59680528b5c8aa882134f23701daed5
+    domain: cover
+    entity_id: d8e5161087599e961f75ed71d390980f
+    type: close
+  mode: single
+- id: '1704130190778'
+  alias: 'Muziek: Radio2 om 9u beneden'
+  description: Radio2 om 9:00 uur beneden
+  trigger:
+  - platform: time
+    at: 09:00:00
+  condition: []
+  action:
+  - service: media_player.volume_set
+    metadata: {}
+    data:
+      volume_level: 0.33
+    target:
+      device_id: 156761362709cd4f5ecb3f0682866595
+      entity_id: media_player.nestmini6348
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.beneden_3
+    data:
+      media_content_id: media-source://radio_browser/005636e9-2142-497b-8f51-606d536fb18a
+      media_content_type: audio/aac
+    metadata:
+      title: NPO Radio 2
+      thumbnail: http://www.nporadio2.nl/apple-touch-icon.png
+      media_class: music
+      children_media_class:
+      navigateIds:
+      - {}
+      - media_content_type: app
+        media_content_id: media-source://radio_browser
+      - media_content_type: music
+        media_content_id: media-source://radio_browser/country/NL
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.nestmini6348
+    data:
+      media_content_id: media-source://radio_browser/961e3b9a-0601-11e8-ae97-52543be04c81
+      media_content_type: audio/aac
+    metadata:
+      title: NPO Radio 2
+      thumbnail: http://www.nporadio2.nl/apple-touch-icon.png
+      media_class: music
+      children_media_class:
+      navigateIds:
+      - {}
+      - media_content_type: app
+        media_content_id: media-source://radio_browser
+      - media_content_type: music
+        media_content_id: media-source://radio_browser/language
+      - media_content_type: music
+        media_content_id: media-source://radio_browser/language/nl
+  mode: single
+- id: '1704130291752'
+  alias: 'Muziek: Beneden muziek stoppen'
+  description: ''
+  trigger: []
+  condition: []
+  action:
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.beneden_3
+    data:
+      media_content_id: media-source://tts/cloud?message=Tadaa.+De+muziek+is+gestopt+door+Home+Assistant&language=nl-BE&voice=DenaNeural
+      media_content_type: provider
+    metadata:
+      title: Tadaa. De muziek is gestopt door Home Assistant
+      thumbnail: https://brands.home-assistant.io/_/cloud/logo.png
+      media_class: app
+      children_media_class:
+      navigateIds:
+      - {}
+      - media_content_type: app
+        media_content_id: media-source://tts
+      - media_content_type: provider
+        media_content_id: media-source://tts/cloud?message=Tadaa.+De+muziek+is+gestopt+door+Home+Assistant&language=nl-BE&voice=DenaNeural
+  mode: single
+- id: '1704576387338'
+  alias: 'Muziek: Badkamer Radio'
+  description: Radio2 als badkamer ventilator aan staat
+  trigger:
+  - type: turned_on
+    platform: device
+    device_id: 3f5c447016d1585156671225f1d5b650
+    entity_id: dc145491510d9720539fe38d45144feb
+    domain: binary_sensor
+  - type: turned_off
+    platform: device
+    device_id: 3f5c447016d1585156671225f1d5b650
+    entity_id: dc145491510d9720539fe38d45144feb
+    domain: binary_sensor
+  condition: []
+  action:
+  - service: media_player.volume_set
+    metadata: {}
+    data:
+      volume_level: 0.25
+    target:
+      entity_id: media_player.nestmini6348
+  - if:
+    - type: is_on
+      condition: device
+      device_id: 3f5c447016d1585156671225f1d5b650
+      entity_id: dc145491510d9720539fe38d45144feb
+      domain: binary_sensor
+    then:
+    - service: media_player.play_media
+      target:
+        entity_id: media_player.nestmini6348
+      data:
+        media_content_id: media-source://radio_browser/005636e9-2142-497b-8f51-606d536fb18a
+        media_content_type: audio/aac
+      metadata:
+        title: NPO Radio 2
+        thumbnail: http://www.nporadio2.nl/apple-touch-icon.png
+        media_class: music
+        children_media_class:
+        navigateIds:
+        - {}
+        - media_content_type: app
+          media_content_id: media-source://radio_browser
+        - media_content_type: music
+          media_content_id: media-source://radio_browser/language
+        - media_content_type: music
+          media_content_id: media-source://radio_browser/language/nl
+    else:
+    - service: media_player.media_stop
+      metadata: {}
+      data: {}
+      target:
+        device_id: 4eeef3b2ed91d9f1367783e99a6a20e7
+    - service: tts.google_translate_say
+      metadata: {}
+      data:
+        cache: true
+        entity_id: media_player.nestmini6348
+        message: To The Loo !
   mode: single

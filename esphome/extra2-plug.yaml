@@ -1,0 +1,15 @@
+substitutions:
+  name: "extra2-plug"
+packages:
+  athom.smart-plug-v2: github://athom-tech/athom-configs/athom-smart-plug-v2.yaml
+esphome:
+  name: ${name}
+  name_add_mac_suffix: false
+api:
+  encryption:
+    key: Aw8Fz5Aut1Nsw+UJMqPrut3+kb1wUQ7lOr2NDzazheM=
+
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password

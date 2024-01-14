@@ -71,12 +71,17 @@ binary_sensor:
             // Stop it.
             id(my_cover).stop();
           }
-#- platform: gpio
-#  pin:
-#    number: GPIO9
-#    mode: INPUT_PULLUP
-#    inverted: True
-#  name: "Keuken Sunscreen Touchpad 2"
+- platform: gpio
+  pin:
+    number: GPIO9
+    mode: INPUT_PULLUP
+    inverted: True
+  name: "Keuken Sunscreen Touchpad Rechts"
+  filters:
+   - delayed_on: 10ms
+   - delayed_off: 10ms
+  ##     cover.toggle: keuken_rolgordijn
+
 #- platform: gpio
 #  pin:
 #    number: GPIO10

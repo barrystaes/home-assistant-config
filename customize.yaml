@@ -11,23 +11,3 @@ sensor.power_consumption_phase_l1:
   hidden: true
 binary_sensor.is_chins_overheat:
   hidden: true
-  
-# Rename
-sensor.cresta_2d01_bat:
-  friendly_name: Cresta_woonkamer_bat
-sensor.cresta_2d01_hum:
-  friendly_name: Cresta_woonkamer_hum
-sensor.cresta_2d01_temp:
-  friendly_name: Cresta_woonkamer_temp
-sensor.cresta_6603_bat:
-  friendly_name: Cresta_keuken_bat
-sensor.cresta_6603_hum:
-  friendly_name: Cresta_keuken_hum
-sensor.cresta_6603_temp:
-  friendly_name: Cresta_keuken_temp
-sensor.cresta_2a01_bat:
-  friendly_name: Cresta_buiten_bat
-sensor.cresta_2a01_hum:
-  friendly_name: Cresta_buiten_hum
-sensor.cresta_2a01_temp:
-  friendly_name: Cresta_buiten_temp

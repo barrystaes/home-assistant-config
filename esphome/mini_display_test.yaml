@@ -23,18 +23,33 @@ api:
 
 ota:
 
+# Get the time from Home Assistant to sync the onboard real-time clock.
+time:
+  - platform: homeassistant
+    id: esptime
+
 sensor:
   - platform: wifi_signal
     name: "WESP WiFi Signal Sensor"
     update_interval: 60s
+  # Get temperature sensors imported from Home Assistant.
   - platform: homeassistant
-    id: ha_serverplug_power 
-    entity_id: sensor.serverplug_power_2
+    id: inside_temperature
+    entity_id: sensor.keuken_hue_motion_sensor_temperature
     internal: true
     
 i2c:
   sda: 5
   scl: 4
+  
+font:
+  - file: 'slkscr.ttf'
+    id: font1
+    size: 8
+
+  - file: 'BebasNeue-Regular.ttf'
+    id: font2
+    size: 48
 
 display:
   - platform: ssd1306_i2c
@@ -45,21 +60,22 @@ display:
     pages:
       - id: page1
         lambda: |-
-          // Draw the graph at position x y
-          it.graph(2, 2, id(single_serverpower_graph));
+          // Print "Hallo Wereld" in top center.
+          it.printf(64, 0, id(font1), TextAlign::TOP_CENTER, "Hallo Wereld");
+          
+          // Print time in HH:MM format
+          it.strftime(0, 60, id(font2), TextAlign::BASELINE_LEFT, "%H:%M", id(esptime).now());
+          
+          // Print inside temperature (from homeassistant sensor)
+          if (id(inside_temperature).has_state()) {
+            it.printf(127, 23, id(font1), TextAlign::TOP_RIGHT , "%.1f°", id(inside_temperature).state);
+          }
       - id: page2
         lambda: |-
-          it.line(0, 0, 100, 50);
-          it.line(0, 0, 100, 05);
-#         //it.print(0, 0, id(font), "Haai World!");
-
-graph:
-  # Show bare-minimum auto-ranged graph 
-  - id: single_serverpower_graph 
-    sensor: ha_serverplug_power 
-    duration: 1h 
-    width: 124 
-    height: 60
+          // Print inside temperature (from homeassistant sensor)
+          if (id(inside_temperature).has_state()) {
+            it.printf(64, 0, id(font2), TextAlign::TOP_CENTER , "%.1f°", id(inside_temperature).state);
+          }
 
 # Cycle through pages on a timer 
 interval: 

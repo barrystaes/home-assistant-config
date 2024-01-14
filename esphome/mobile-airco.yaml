@@ -1,5 +1,5 @@
 esphome:
-  name: server-plug
+  name: "mobile-airco"
 
 esp8266:
   board: esp01_1m
@@ -23,7 +23,7 @@ wifi:
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
-    ssid: "broodje_Server-Plug"
+    ssid: "broodje_AircoMob"
     password: "C7FA5XYLRQJb"
 
 captive_portal:
@@ -39,7 +39,7 @@ binary_sensor:
 
 switch:
   - platform: template
-    name: "ServerPlug Switch"
+    name: "AircoMob Switch"
     optimistic: true
     id: fakebutton
     turn_on_action:
@@ -67,10 +67,10 @@ light:
 
 sensor:
   - platform: wifi_signal
-    name: "ServerPlug WiFi Signal"
+    name: "AircoMob WiFi Signal"
     update_interval: 60s
   - platform: uptime
-    name: "ServerPlug Uptime"
+    name: "AircoMob Uptime"
   - platform: hlw8012
     sel_pin:
       number: GPIO12
@@ -80,19 +80,19 @@ sensor:
     current_resistor: "0.0028"
     voltage_divider: "960"
     current:
-      name: "ServerPlug Current"
+      name: "AircoMob Current"
       unit_of_measurement: A
     voltage:
-      name: "ServerPlug Voltage"
+      name: "AircoMob Voltage"
       unit_of_measurement: V
     power:
-      name: "ServerPlug Power"
+      name: "AircoMob Power"
       unit_of_measurement: W
       id: power
     change_mode_every: 8
     update_interval: 10s
   - platform: total_daily_energy
-    name: "ServerPlug Total Daily Energy"
+    name: "AircoMob Total Daily Energy"
     power_id: power
     filters:
       - multiply: 0.001
@@ -101,7 +101,7 @@ sensor:
 
 text_sensor:
   - platform: version
-    name: "ServerPlug Firmware version"
+    name: "AircoMob Firmware version"
 
 status_led:
   pin: GPIO13
