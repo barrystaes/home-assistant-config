@@ -1,0 +1,135 @@
+esphome:
+  name: keuken-sunscreen
+
+esp8266:
+  board: esp01_1m
+  
+# Sonoff TX T2EU2C (wall switch)
+# First flash: short R19 to GND or pin ( https://github.com/arendst/Sonoff-Tasmota/issues/5918 ) of ESP with GND, used 3.3V FTDI
+# Pinout: https://esphome.io/devices/sonoff_t1_uk_3gang_v1.1.html
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+  password: "68d40e9340c039d091c77a03f46b6bed"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "broodje_Keuken-Sunscreen"
+    password: !secret fallback_ap_password
+
+captive_portal:
+
+sensor:
+- platform: wifi_signal
+  name: "Keuken Sunscreen WiFi Signal"
+  update_interval: 60s
+- platform: uptime
+  name: "Keuken Sunscreen Uptime"
+  
+text_sensor:
+- platform: version
+  name: "Keuken Sunscreen Firmware version"
+    
+binary_sensor:
+- platform: gpio
+  pin:
+    number: GPIO0
+    mode: INPUT_PULLUP
+    inverted: True
+  id: button
+  on_press:
+    then:
+      # logic for cycling through movements: open->stop->close->stop->...
+      - lambda: |
+          if (id(my_cover).current_operation == COVER_OPERATION_IDLE) {
+            // Cover is idle, if at one end change direction
+            if (id(my_cover).position < 0.02) {
+              id(my_cover).open();
+            } else if (id(my_cover).position > 0.98) {
+              id(my_cover).close();
+            } else {
+              // check last direction and either open or close cover.
+              if (id(var_last_closing)) {
+                id(my_cover).open();
+              } else {
+                id(my_cover).close();
+              }
+            }
+          } else {
+            // Cover is opening/closing, remember the direction.
+            id(var_last_closing) = (id(my_cover).current_operation == COVER_OPERATION_CLOSING);
+            
+            // Stop it.
+            id(my_cover).stop();
+          }
+#- platform: gpio
+#  pin:
+#    number: GPIO9
+#    mode: INPUT_PULLUP
+#    inverted: True
+#  name: "Keuken Sunscreen Touchpad 2"
+#- platform: gpio
+#  pin:
+#    number: GPIO10
+#    mode: INPUT_PULLUP
+#    inverted: True
+#    name: "Keuken Sunscreen Touchpad 3"
+#- platform: status
+#  name: "Keuken Sunscreen Status"
+
+switch:
+- platform: gpio
+  pin: GPIO12
+  interlock: &interlock [open_cover, close_cover]
+  id: open_cover
+- platform: gpio
+  pin: GPIO5
+  interlock: *interlock
+  id: close_cover
+#- platform: gpio
+#  name: "Keuken Sunscreen Relay 3"
+#  pin: GPIO4
+
+
+cover:
+- platform: time_based
+  name: "keuken_sunscreen"
+  id: my_cover
+  open_action:
+    - switch.turn_on: open_cover
+  open_duration: 50s
+  close_action:
+    - switch.turn_on: close_cover
+  close_duration: 50s
+  # actually 45s would be more than enough for closing but lets keep it the same
+  stop_action:
+    - switch.turn_off: open_cover
+    - switch.turn_off: close_cover
+
+globals:
+- id: var_last_closing
+  type: bool
+  restore_value: no
+  initial_value: 'false'
+
+output:
+# Register the blue LED as a dimmable output ....
+- platform: esp8266_pwm
+  id: blue_led
+  pin: GPIO13
+  inverted: True
+
+light:
+# ... and then make a light out of it.
+- platform: monochromatic
+  name: "Keuken Sunscreen Blue LED"
+  output: blue_led

@@ -8,8 +8,15 @@ esphome:
 # tuya-convert on Ubuntu 18.04 use needs patch https://github.com/ct-Open-Source/tuya-convert/issues/157#issuecomment-529238904
 
 wifi:
-  ssid: !secret esphome_wifi_ssid
-  password: !secret esphome_wifi_password
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "broodje_Wasmachine"
+    password: !secret fallback_ap_password
+
+captive_portal:
 
 # Enable logging
 logger:
@@ -84,7 +91,10 @@ sensor:
   - platform: total_daily_energy
     name: "Wasmachine Total Daily Energy"
     power_id: power
-    unit_of_measurement: W
+    filters:
+      - multiply: 0.001
+    unit_of_measurement: kWh
+    device_class: energy
 
 text_sensor:
   - platform: version

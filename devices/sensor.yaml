@@ -1,34 +1,34 @@
-- platform: dsmr
-  host: !secret dsmr_host
-  port: !secret dsmr_port
-  dsmr_version: 4
-- platform: rflink
-  automatic_add: false
-  devices:
-    cresta_2d01_bat:
-      #name: Cresta_woonkamer_bat
-      sensor_type: battery
-    cresta_2d01_hum:
-      #name: Cresta_woonkamer_hum
-      sensor_type: humidity
-    cresta_2d01_temp:
-      #name: Cresta_woonkamer_temp
-      sensor_type: temperature
-    cresta_6603_bat:
-      #name: Cresta_keuken_bat
-      sensor_type: battery
-    cresta_6603_hum:
-      #name: Cresta_keuken_hum
-      sensor_type: humidity
-    cresta_6603_temp:
-      #name: Cresta_keuken_temp
-      sensor_type: temperature
-    cresta_2a01_bat:
-      #name: Cresta_buiten_bat
-      sensor_type: battery
-    cresta_2a01_hum:
-      #name: Cresta_buiten_hum
-      sensor_type: humidity
-    cresta_2a01_temp:
-      #name: Cresta_buiten_temp
-      sensor_type: temperature
+# - platform: dsmr
+#   host: !secret dsmr_host
+#   port: !secret dsmr_port
+#   dsmr_version: 4
+# - platform: rflink
+#   automatic_add: false
+#   devices:
+#     cresta_2d01_bat:
+#       #name: Cresta_woonkamer_bat
+#       sensor_type: battery
+#     cresta_2d01_hum:
+#       #name: Cresta_woonkamer_hum
+#       sensor_type: humidity
+#     cresta_2d01_temp:
+#       #name: Cresta_woonkamer_temp
+#       sensor_type: temperature
+#     cresta_6603_bat:
+#       #name: Cresta_keuken_bat
+#       sensor_type: battery
+#     cresta_6603_hum:
+#       #name: Cresta_keuken_hum
+#       sensor_type: humidity
+#     cresta_6603_temp:
+#       #name: Cresta_keuken_temp
+#       sensor_type: temperature
+#     cresta_2a01_bat:
+#       #name: Cresta_buiten_bat
+#       sensor_type: battery
+#     cresta_2a01_hum:
+#       #name: Cresta_buiten_hum
+#       sensor_type: humidity
+#     cresta_2a01_temp:
+#       #name: Cresta_buiten_temp
+#       sensor_type: temperature

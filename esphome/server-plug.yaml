@@ -1,15 +1,12 @@
 esphome:
-  name: prepared_koogeek_klsp1
-  platform: ESP8266
+  name: server-plug
+
+esp8266:
   board: esp01_1m
 
 # Koogeek smart plug KLSP1
 # First flash: over wifi using tuya-convert tool see https://lovetechstuff.com/iot-products/how-to-flash-wifi-socket-without-disassembly/
 # tuya-convert on Ubuntu 18.04 use needs patch https://github.com/ct-Open-Source/tuya-convert/issues/157#issuecomment-529238904
-
-wifi:
-  ssid: !secret esphome_wifi_ssid
-  password: !secret esphome_wifi_password
 
 # Enable logging
 logger:
@@ -18,6 +15,18 @@ logger:
 api:
 
 ota:
+  password: "c908a4fbffb10e9a45401ef93f5d8319"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "broodje_Server-Plug"
+    password: "C7FA5XYLRQJb"
+
+captive_portal:
 
 binary_sensor:
   - platform: gpio
@@ -30,7 +39,7 @@ binary_sensor:
 
 switch:
   - platform: template
-    name: "PrepKoogeek Switch"
+    name: "ServerPlug Switch"
     optimistic: true
     id: fakebutton
     turn_on_action:
@@ -58,10 +67,10 @@ light:
 
 sensor:
   - platform: wifi_signal
-    name: "PrepKoogeek WiFi Signal"
+    name: "ServerPlug WiFi Signal"
     update_interval: 60s
   - platform: uptime
-    name: "PrepKoogeek Uptime"
+    name: "ServerPlug Uptime"
   - platform: hlw8012
     sel_pin:
       number: GPIO12
@@ -71,25 +80,28 @@ sensor:
     current_resistor: "0.0028"
     voltage_divider: "960"
     current:
-      name: "PrepKoogeek Current"
+      name: "ServerPlug Current"
       unit_of_measurement: A
     voltage:
-      name: "PrepKoogeek Voltage"
+      name: "ServerPlug Voltage"
       unit_of_measurement: V
     power:
-      name: "PrepKoogeek Power"
+      name: "ServerPlug Power"
       unit_of_measurement: W
       id: power
     change_mode_every: 8
     update_interval: 10s
   - platform: total_daily_energy
-    name: "PrepKoogeek Total Daily Energy"
+    name: "ServerPlug Total Daily Energy"
     power_id: power
-    unit_of_measurement: W
+    filters:
+      - multiply: 0.001
+    unit_of_measurement: kWh
+    device_class: energy
 
 text_sensor:
   - platform: version
-    name: "PrepKoogeek Firmware version"
+    name: "ServerPlug Firmware version"
 
 status_led:
   pin: GPIO13

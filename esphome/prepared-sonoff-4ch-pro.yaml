@@ -1,0 +1,115 @@
+esphome:
+  name: prepared-sonoff-4ch-pro
+
+esp8266:
+  board: esp01_1m
+  
+# Sonoff 4CH Pro R3
+# Programming via onboard header
+
+# GPIO0  Button #1 (inverted)
+# GPIO9  Button #2 (inverted)
+# GPIO10 Button #3 (inverted)
+# GPIO14 Button #4 (inverted)
+# GPIO12 Relay #1 and red LED
+# GPIO5  Relay #2 and red LED
+# GPIO4  Relay #3 and red LED
+# GPIO15 Relay #4 and red LED
+# GPIO13 Blue LED (inverted)
+# GPIO1  TX pin (for external sensors)
+# GPIO3  RX pin (for external sensors)
+# GPIO2  IO2 pin (for external sensors)
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+  password: "501dec25e4e1bf4709ae005dcbc03c6e"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "broodje_Prepared-Sonoff-4Ch-Pro"
+    password: "R5P34e5wqAb9"
+
+captive_portal:
+
+sensor:
+- platform: wifi_signal
+  name: "prepared-sonoff-mini-r2 WiFi Signal"
+  update_interval: 60s
+- platform: uptime
+  name: "prepared-sonoff-mini-r2 Uptime"
+  
+text_sensor:
+- platform: version
+  name: "prepared-sonoff-mini-r2 Firmware version"
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO0
+      mode:
+        input: true
+        pullup: true
+      inverted: true
+    name: "sonoff-4ch-pro Button 1"
+  - platform: gpio
+    pin:
+      number: GPIO9
+      mode:
+        input: true
+        pullup: true
+      inverted: true
+    name: "sonoff-4ch-pro Button 2"
+  - platform: gpio
+    pin:
+      number: GPIO10
+      mode:
+        input: true
+        pullup: true
+      inverted: true
+    name: "sonoff-4ch-pro Button 3"
+  - platform: gpio
+    pin:
+      number: GPIO14
+      mode:
+        input: true
+        pullup: true
+      inverted: true
+    name: "sonoff-4ch-pro Button 4"
+  - platform: status
+    name: "sonoff-4ch-pro Status"
+
+switch:
+  - platform: gpio
+    name: "sonoff-4ch-pro Relay 1"
+    pin: GPIO12
+  - platform: gpio
+    name: "sonoff-4ch-pro Relay 2"
+    pin: GPIO5
+  - platform: gpio
+    name: "sonoff-4ch-pro Relay 3"
+    pin: GPIO4
+  - platform: gpio
+    name: "sonoff-4ch-pro Relay 4"
+    pin: GPIO15
+
+output:
+  # Register the blue LED as a dimmable output ....
+  - platform: esp8266_pwm
+    id: blue_led
+    pin: GPIO13
+    inverted: true
+
+light:
+  # ... and then make a light out of it.
+  - platform: monochromatic
+    name: "sonoff-4ch-pro Blue LED"
+    output: blue_led

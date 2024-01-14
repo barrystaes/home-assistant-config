@@ -1,1 +1,67 @@
-[]
+- id: '1644863886501'
+  alias: Zon op
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunrise
+  condition: []
+  action:
+  - device_id: c3f93ba35defef698e16a6b54a8a99ff
+    domain: cover
+    entity_id: cover.woonkamer_rolluik
+    type: set_position
+    position: 100
+  mode: single
+- id: '1644864003894'
+  alias: Zon onder
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: '0'
+  condition: []
+  action:
+  - device_id: c3f93ba35defef698e16a6b54a8a99ff
+    domain: cover
+    entity_id: cover.woonkamer_rolluik
+    type: set_position
+    position: 0
+  - scene: scene.woonkamer_pinkelsteeltje
+  - device_id: 459757ebedc4cb6d2d77881b4ce5c954
+    domain: cover
+    entity_id: cover.keuken_sunscreen
+    type: set_position
+    position: 100
+  mode: single
+- id: '1644914447272'
+  alias: Keuken overhit
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.keuken_hue_motion_sensor_temperature
+    above: '22'
+    for:
+      hours: 0
+      minutes: 30
+      seconds: 0
+  condition:
+  - condition: time
+    after: 08:00
+    before: '18:00'
+  - condition: numeric_state
+    entity_id: weather.thuis2022
+    attribute: wind_speed
+    below: '123'
+  action:
+  - device_id: 459757ebedc4cb6d2d77881b4ce5c954
+    domain: cover
+    entity_id: cover.keuken_sunscreen
+    type: set_position
+    position: 0
+  - type: turn_on
+    device_id: 14e4ca750b1c0a9ff5696ff3af340e60
+    entity_id: light.aanrecht_bar_kleur
+    domain: light
+    flash: long
+    brightness_pct: 100
+  mode: single

@@ -4,8 +4,16 @@ esphome:
   board: ttgo-lora32-v1
 
 wifi:
-  ssid: !secret esphome_wifi_ssid
-  password: !secret esphome_wifi_password
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "broodje_WESP"
+    password: !secret fallback_ap_password
+
+captive_portal:
+
 
 # Enable logging 
 logger:
@@ -19,6 +27,10 @@ sensor:
   - platform: wifi_signal
     name: "WESP WiFi Signal Sensor"
     update_interval: 60s
+  - platform: homeassistant
+    id: ha_serverplug_power 
+    entity_id: sensor.serverplug_power_2
+    internal: true
     
 i2c:
   sda: 5
@@ -29,7 +41,29 @@ display:
     model: "SSD1306 128x64"
     #reset_pin: D0
     address: 0x3C
-    lambda: |-
-      it.line(0, 0, 100, 50);
-      it.line(0, 0, 100, 05);
-#      //it.print(0, 0, id(font), "Haai World!");
+    id: my_display
+    pages:
+      - id: page1
+        lambda: |-
+          // Draw the graph at position x y
+          it.graph(2, 2, id(single_serverpower_graph));
+      - id: page2
+        lambda: |-
+          it.line(0, 0, 100, 50);
+          it.line(0, 0, 100, 05);
+#         //it.print(0, 0, id(font), "Haai World!");
+
+graph:
+  # Show bare-minimum auto-ranged graph 
+  - id: single_serverpower_graph 
+    sensor: ha_serverplug_power 
+    duration: 1h 
+    width: 124 
+    height: 60
+
+# Cycle through pages on a timer 
+interval: 
+  - interval: 5s 
+    then: 
+      - display.page.show_next: my_display 
+      - component.update: my_display

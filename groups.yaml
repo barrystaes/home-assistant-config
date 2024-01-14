@@ -1,16 +1,16 @@
-klimaat:
-  name: Klimaat
-  entities:
-    - sensor.cresta_2a01_temp
-    - sensor.cresta_2a01_hum
-    - sensor.cresta_2d01_temp
-    - sensor.cresta_2d01_hum
-    - sensor.cresta_6603_temp
-    - sensor.cresta_6603_hum
+# klimaat:
+#   name: Klimaat
+#   entities:
+#     - sensor.cresta_2a01_temp
+#     - sensor.cresta_2a01_hum
+#     - sensor.cresta_2d01_temp
+#     - sensor.cresta_2d01_hum
+#     - sensor.cresta_6603_temp
+#     - sensor.cresta_6603_hum
 
-battery:
-  name: Batterijen
-  entities:
-    - sensor.cresta_2a01_bat
-    - sensor.cresta_2d01_bat
-    - sensor.cresta_6603_bat
+# battery:
+#   name: Batterijen
+#   entities:
+#     - sensor.cresta_2a01_bat
+#     - sensor.cresta_2d01_bat
+#     - sensor.cresta_6603_bat

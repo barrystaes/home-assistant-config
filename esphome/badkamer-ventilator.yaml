@@ -1,0 +1,97 @@
+esphome:
+  name: badkamer-ventilator
+
+esp8266:
+  board: esp01_1m
+
+# Sonoff Mini R2 v2
+# First flash was via wifi, see https://www.youtube.com/watch?v=FoJT5pJDEL4
+
+# Pin    Function
+# GPIO0  Button (inverted)
+# GPIO4  SW Input (inverted)
+# GPIO12 Relay and Red LED
+# GPIO13 Blue LED (inverted)
+# GPIO16 Optional sensor
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+  password: !secret ota_password_badkamerventilator
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "broodje_Badkamer-Ventilator"
+    password: !secret fallback_ap_password
+
+captive_portal:
+
+sensor:
+  - platform: wifi_signal
+    name: "Badkamer Ventilator WiFi Signal"
+    update_interval: 60s
+  - platform: uptime
+    name: "Badkamer Ventilator Uptime"
+  
+text_sensor:
+  - platform: version
+    name: "Badkamer Ventilator Firmware version"
+  
+switch:
+  - platform: gpio
+    #name: "Badkamer Ventilator Relay"
+    id: fan_relay
+    pin: GPIO12
+  - platform: template
+    #name: "Badkamer Ventilator Schakelaar"
+    optimistic: true
+    id: fakebutton
+    turn_on_action:
+      - switch.turn_on: fan_relay
+    turn_off_action:
+      - switch.turn_off: fan_relay
+
+binary_sensor:
+  - platform: status
+    name: "Badkamer Ventilator Status"
+  - platform: gpio
+    pin:
+      number: GPIO0
+      mode:
+        input: true
+        pullup: true
+      inverted: true
+    id: pcb_button
+    #name: "Badkamer Ventilator Button"
+  - platform: gpio
+    pin: GPIO4
+    name: "Badkamer Ventilator Schakelaar"
+    # The SW2 wire terminal is actually GND for this SW1 input.
+    on_press:
+      then:
+        - switch.toggle: fakebutton
+    on_release:
+      then:
+        - switch.toggle: fakebutton
+    
+output:
+  # Register the green LED as a dimmable output ....
+  - platform: esp8266_pwm
+    id: blue_led
+    pin:
+      number: GPIO13
+      inverted: true
+
+light:
+  # ... and then make a light out of it.
+  - platform: monochromatic
+    name: "Badkamer Ventilator Blue LED"
+    output: blue_led

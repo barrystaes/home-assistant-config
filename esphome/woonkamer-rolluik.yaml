@@ -1,40 +1,46 @@
 esphome:
-  name: test_sonoff_tx_t2eu2c
-  platform: ESP8266
+  name: woonkamer-rolluik
+
+esp8266:
   board: esp01_1m
-
+  
 # Sonoff TX T2EU2C (wall switch)
-# First flash: short pin ( https://github.com/arendst/Sonoff-Tasmota/issues/5918 ) of ESP with GND, used 3.3V FTDI
-# Pinout: testing with similar product pinout seems compatible https://esphome.io/devices/sonoff_t1_uk_3gang_v1.1.html
+# First flash: short R19 to GND or pin ( https://github.com/arendst/Sonoff-Tasmota/issues/5918 ) of ESP with GND, used 3.3V FTDI
+# Pinout: https://esphome.io/devices/sonoff_t1_uk_3gang_v1.1.html
 
-wifi:
-  ssid: !secret esphome_wifi_ssid
-  password: !secret esphome_wifi_password
 
-api:
-
+# Enable logging
 logger:
 
+# Enable Home Assistant API
+api:
+
 ota:
+  password: "2f0c3761362e0a180f898e5efa295ddd"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "broodje_Woonkamer-Rolluik"
+    password: "cC3Lbf40bNXB"
+
+captive_portal:
 
 sensor:
-- platform: wifi_signal
-  name: "Test TXswitch WiFi Signal"
-  update_interval: 60s
-- platform: uptime
-  name: "Test TXswitch Uptime"
-  
-text_sensor:
-- platform: version
-  name: "Test TXswitch Firmware version"
-    
+  - platform: wifi_signal
+    name: "Woonkamer Rolluik WiFi Signal"
+    update_interval: 60s
+  - platform: uptime
+    name: "Woonkamer Rolluik Uptime"
+
 binary_sensor:
 - platform: gpio
   pin:
     number: GPIO0
-    mode: INPUT_PULLUP
-    inverted: True
-  name: "Test TXswitch Touchpad 1"
+    inverted: true
   id: button
   on_press:
     then:
@@ -61,57 +67,41 @@ binary_sensor:
             // Stop it.
             id(my_cover).stop();
           }
-#- platform: gpio
-#  pin:
-#    number: GPIO9
-#    mode: INPUT_PULLUP
-#    inverted: True
-#  name: "Test TXswitch Touchpad 2"
-#- platform: gpio
-#  pin:
-#    number: GPIO10
-#    mode: INPUT_PULLUP
-#    inverted: True
-#    name: "Test TXswitch Touchpad 3"
-#- platform: status
-#  name: "Test TXswitch Status"
 
 switch:
 - platform: gpio
-  name: "Test TXswitch Relay 1"
   pin: GPIO12
   interlock: &interlock [open_cover, close_cover]
   id: open_cover
 - platform: gpio
-  name: "Test TXswitch Relay 2"
   pin: GPIO5
   interlock: *interlock
   id: close_cover
-#- platform: gpio
-#  name: "Test TXswitch Relay 3"
-#  pin: GPIO4
-
 
 cover:
 - platform: time_based
-  name: "Screen3"
+  name: "Woonkamer Rolluik"
   id: my_cover
   open_action:
     - switch.turn_on: open_cover
-  open_duration: 50s
+  open_duration: 18s
   close_action:
     - switch.turn_on: close_cover
-  close_duration: 50s
+  close_duration: 17s
   # actually 45s would be more than enough for closing but lets keep it the same
   stop_action:
     - switch.turn_off: open_cover
     - switch.turn_off: close_cover
-
+    
 globals:
-- id: var_last_closing
-  type: bool
-  restore_value: no
-  initial_value: 'false'
+  - id: var_last_closing
+    type: bool
+    restore_value: no
+    initial_value: 'false'
+  
+text_sensor:
+  - platform: version
+    name: "Woonkamer Rolluik Firmware version"
 
 output:
 # Register the blue LED as a dimmable output ....
@@ -123,5 +113,5 @@ output:
 light:
 # ... and then make a light out of it.
 - platform: monochromatic
-  name: "Test TXswitch Blue LED"
+  name: "Woomkamer Rolluik Blue LED"
   output: blue_led
