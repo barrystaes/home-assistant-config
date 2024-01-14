@@ -1,5 +1,10 @@
-esphome:
+substitutions:
   name: mini_display_test
+  friendly_name: "WESP"
+
+esphome:
+  name: "${name}"
+  friendly_name: "${friendly_name}"
   platform: ESP32
   board: ttgo-lora32-v1
 
@@ -9,7 +14,7 @@ wifi:
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
-    ssid: "broodje_WESP"
+    ssid: "broodje_${name}"
     password: !secret fallback_ap_password
 
 captive_portal:
@@ -30,7 +35,7 @@ time:
 
 sensor:
   - platform: wifi_signal
-    name: "WESP WiFi Signal Sensor"
+    name: "${friendly_name} Signal Sensor"
     update_interval: 60s
   # Get temperature sensors imported from Home Assistant.
   - platform: homeassistant

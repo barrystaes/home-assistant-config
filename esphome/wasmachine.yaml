@@ -1,5 +1,10 @@
-esphome:
+substitutions:
   name: wasmachine
+  friendly_name: "Wasmachine"
+
+esphome:
+  name: "${name}"
+  friendly_name: "${friendly_name}"
   platform: ESP8266
   board: esp01_1m
 
@@ -13,7 +18,7 @@ wifi:
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
-    ssid: "broodje_Wasmachine"
+    ssid: "broodje_${name}"
     password: !secret fallback_ap_password
 
 captive_portal:
@@ -37,7 +42,7 @@ binary_sensor:
 
 switch:
   - platform: template
-    name: "Wasmachine Switch"
+    name: "${friendly_name} Switch"
     optimistic: true
     id: fakebutton
     turn_on_action:
@@ -64,10 +69,10 @@ light:
 
 sensor:
   - platform: wifi_signal
-    name: "Wasmachine WiFi Signal"
+    name: "${friendly_name} WiFi Signal"
     update_interval: 60s
   - platform: uptime
-    name: "Wasmachine Uptime"
+    name: "${friendly_name} Uptime"
   - platform: hlw8012
     sel_pin:
       number: GPIO12
@@ -77,19 +82,19 @@ sensor:
     current_resistor: "0.0028"
     voltage_divider: "960"
     current:
-      name: "Wasmachine Current"
+      name: "${friendly_name} Current"
       unit_of_measurement: A
     voltage:
-      name: "Wasmachine Voltage"
+      name: "${friendly_name} Voltage"
       unit_of_measurement: V
     power:
-      name: "Wasmachine Power"
+      name: "${friendly_name} Power"
       unit_of_measurement: W
       id: power
     change_mode_every: 8
     update_interval: 10s
   - platform: total_daily_energy
-    name: "Wasmachine Total Daily Energy"
+    name: "${friendly_name} Total Daily Energy"
     power_id: power
     filters:
       - multiply: 0.001
@@ -98,7 +103,7 @@ sensor:
 
 text_sensor:
   - platform: version
-    name: "Wasmachine Firmware version"
+    name: "${friendly_name} Firmware version"
 
 status_led:
   pin: GPIO13

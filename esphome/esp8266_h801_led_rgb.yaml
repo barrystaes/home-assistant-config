@@ -1,5 +1,10 @@
+substitutions:
+  name: "woonkamer_kast_light"
+  friendly_name: "Woonkamer Kast Light"
+
 esphome:
-  name: woonkamer_kast_light
+  name: "${name}"
+  friendly_name: "${friendly_name}"
   # FKA esp8266_h801_led_rgb
   platform: ESP8266
   board: esp01_1m
@@ -11,6 +16,13 @@ wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
 
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "broodje_${name}"
+    password: !secret fallback_ap_password
+
+captive_portal:
+
 # Enable logging
 logger:
 
@@ -21,10 +33,10 @@ ota:
 
 sensor:
   - platform: wifi_signal
-    name: "Woonkamer Kast Light WiFi Signal"
+    name: "${friendly_name} WiFi Signal"
     update_interval: 60s
   - platform: uptime
-    name: "Woonkamer Kast Light Uptime"
+    name: "${friendly_name} Uptime"
     
 #RGBWarm
 output:
@@ -51,7 +63,7 @@ output:
     
 light:
   - platform: rgb
-    name: "Woonkamer Kast Light RGB"
+    name: "${friendly_name} RGB"
     red: pwm_r
     green: pwm_g
     blue: pwm_b
@@ -64,4 +76,4 @@ light:
   
 text_sensor:
   - platform: version
-    name: "Woonkamer Kast Light Firmware version"
+    name: "${friendly_name} Firmware version"

@@ -1,5 +1,11 @@
-esphome:
+substitutions:
   name: prepared-sonoff-4ch-pro
+  friendly_name: "sonoff-4ch-pro"
+
+esphome:
+  name: "${name}"
+  friendly_name: "${friendly_name}"
+
 
 esp8266:
   board: esp01_1m
@@ -35,21 +41,21 @@ wifi:
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
-    ssid: "broodje_Prepared-Sonoff-4Ch-Pro"
-    password: "R5P34e5wqAb9"
+    ssid: "broodje_${name}"
+    password: !secret fallback_ap_password
 
 captive_portal:
 
 sensor:
 - platform: wifi_signal
-  name: "prepared-sonoff-mini-r2 WiFi Signal"
+  name: "${friendly_name} WiFi Signal"
   update_interval: 60s
 - platform: uptime
-  name: "prepared-sonoff-mini-r2 Uptime"
+  name: "${friendly_name} Uptime"
   
 text_sensor:
 - platform: version
-  name: "prepared-sonoff-mini-r2 Firmware version"
+  name: "${friendly_name} Firmware version"
 
 binary_sensor:
   - platform: gpio
@@ -59,7 +65,7 @@ binary_sensor:
         input: true
         pullup: true
       inverted: true
-    name: "sonoff-4ch-pro Button 1"
+    name: "${friendly_name} Button 1"
   - platform: gpio
     pin:
       number: GPIO9
@@ -67,7 +73,7 @@ binary_sensor:
         input: true
         pullup: true
       inverted: true
-    name: "sonoff-4ch-pro Button 2"
+    name: "${friendly_name} Button 2"
   - platform: gpio
     pin:
       number: GPIO10
@@ -75,7 +81,7 @@ binary_sensor:
         input: true
         pullup: true
       inverted: true
-    name: "sonoff-4ch-pro Button 3"
+    name: "${friendly_name} Button 3"
   - platform: gpio
     pin:
       number: GPIO14
@@ -83,22 +89,22 @@ binary_sensor:
         input: true
         pullup: true
       inverted: true
-    name: "sonoff-4ch-pro Button 4"
+    name: "${friendly_name} Button 4"
   - platform: status
-    name: "sonoff-4ch-pro Status"
+    name: "${friendly_name} Status"
 
 switch:
   - platform: gpio
-    name: "sonoff-4ch-pro Relay 1"
+    name: "${friendly_name} Relay 1"
     pin: GPIO12
   - platform: gpio
-    name: "sonoff-4ch-pro Relay 2"
+    name: "${friendly_name} Relay 2"
     pin: GPIO5
   - platform: gpio
-    name: "sonoff-4ch-pro Relay 3"
+    name: "${friendly_name} Relay 3"
     pin: GPIO4
   - platform: gpio
-    name: "sonoff-4ch-pro Relay 4"
+    name: "${friendly_name} Relay 4"
     pin: GPIO15
 
 output:
@@ -111,5 +117,5 @@ output:
 light:
   # ... and then make a light out of it.
   - platform: monochromatic
-    name: "sonoff-4ch-pro Blue LED"
+    name: "${friendly_name} Blue LED"
     output: blue_led

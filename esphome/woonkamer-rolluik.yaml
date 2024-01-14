@@ -1,5 +1,10 @@
-esphome:
+substitutions:
   name: woonkamer-rolluik
+  friendly_name: "Woonkamer Rolluik"
+
+esphome:
+  name: "${name}"
+  friendly_name: "${friendly_name}"
 
 esp8266:
   board: esp01_1m
@@ -24,17 +29,17 @@ wifi:
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
-    ssid: "broodje_Woonkamer-Rolluik"
-    password: "cC3Lbf40bNXB"
+    ssid: "broodje_${name}"
+    password: !secret fallback_ap_password
 
 captive_portal:
 
 sensor:
   - platform: wifi_signal
-    name: "Woonkamer Rolluik WiFi Signal"
+    name: "${friendly_name} WiFi Signal"
     update_interval: 60s
   - platform: uptime
-    name: "Woonkamer Rolluik Uptime"
+    name: "${friendly_name} Uptime"
 
 binary_sensor:
 - platform: gpio
@@ -80,7 +85,7 @@ switch:
 
 cover:
 - platform: time_based
-  name: "Woonkamer Rolluik"
+  name: "${friendly_name}"
   id: my_cover
   open_action:
     - switch.turn_on: open_cover
@@ -101,7 +106,7 @@ globals:
   
 text_sensor:
   - platform: version
-    name: "Woonkamer Rolluik Firmware version"
+    name: "${friendly_name} Firmware version"
 
 output:
 # Register the blue LED as a dimmable output ....
@@ -113,5 +118,5 @@ output:
 light:
 # ... and then make a light out of it.
 - platform: monochromatic
-  name: "Woomkamer Rolluik Blue LED"
+  name: "${friendly_name} Blue LED"
   output: blue_led

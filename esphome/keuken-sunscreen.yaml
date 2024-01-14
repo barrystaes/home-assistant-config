@@ -1,5 +1,10 @@
-esphome:
+substitutions:
   name: keuken-sunscreen
+  friendly_name: "Keuken Sunscreen"
+
+esphome:
+  name: "${name}"
+  friendly_name: "${friendly_name}"
 
 esp8266:
   board: esp01_1m
@@ -23,21 +28,21 @@ wifi:
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
-    ssid: "broodje_Keuken-Sunscreen"
+    ssid: "broodje_${name}"
     password: !secret fallback_ap_password
 
 captive_portal:
 
 sensor:
 - platform: wifi_signal
-  name: "Keuken Sunscreen WiFi Signal"
+  name: "${friendly_name} WiFi Signal"
   update_interval: 60s
 - platform: uptime
-  name: "Keuken Sunscreen Uptime"
+  name: "${friendly_name} Uptime"
   
 text_sensor:
 - platform: version
-  name: "Keuken Sunscreen Firmware version"
+  name: "${friendly_name} Firmware version"
     
 binary_sensor:
 - platform: gpio
@@ -76,7 +81,7 @@ binary_sensor:
     number: GPIO9
     mode: INPUT_PULLUP
     inverted: True
-  name: "Keuken Sunscreen Touchpad Rechts"
+  name: "${friendly_name} Touchpad Rechts"
   filters:
    - delayed_on: 10ms
    - delayed_off: 10ms
@@ -87,9 +92,9 @@ binary_sensor:
 #    number: GPIO10
 #    mode: INPUT_PULLUP
 #    inverted: True
-#    name: "Keuken Sunscreen Touchpad 3"
+#    name: "${friendly_name} Touchpad 3"
 #- platform: status
-#  name: "Keuken Sunscreen Status"
+#  name: "${friendly_name} Status"
 
 switch:
 - platform: gpio
@@ -101,7 +106,7 @@ switch:
   interlock: *interlock
   id: close_cover
 #- platform: gpio
-#  name: "Keuken Sunscreen Relay 3"
+#  name: "${friendly_name} Relay 3"
 #  pin: GPIO4
 
 
@@ -136,5 +141,5 @@ output:
 light:
 # ... and then make a light out of it.
 - platform: monochromatic
-  name: "Keuken Sunscreen Blue LED"
+  name: "${friendly_name} Blue LED"
   output: blue_led
