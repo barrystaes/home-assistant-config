@@ -1,30 +1,14 @@
 homeassistant:
-  # Customization file
-  customize_glob: !include customize_glob.yaml
   customize: !include customize.yaml
 
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
 
-# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
 http:
-  # base_url: !secret http_base_url
   ssl_certificate: /ssl/fullchain.pem
   ssl_key: /ssl/privkey.pem
   ip_ban_enabled: true
   login_attempts_threshold: 10
-
-# Discover some devices automatically
-#discovery:
-
-# Devices
-sensor: !include devices/sensor.yaml
-binary_sensor: !include devices/binary_sensor.yaml
-switch: !include devices/switch.yaml
-light: !include devices/light.yaml
-notify: !include devices/notify.yaml
-alert: !include devices/alert.yaml
-input_boolean: !include devices/input_boolean.yaml
 
 # Text to speech
 tts:
@@ -32,7 +16,6 @@ tts:
     cache: true
     cache_dir: /tmp/tts
     time_memory: 57600
-#    service_name: google_say
 
 group: !include groups.yaml
 automation: !include automations.yaml
